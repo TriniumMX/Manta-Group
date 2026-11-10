@@ -33,6 +33,10 @@ Entorno: Node 22, pnpm 9+.
 
 > Nota: esta versión de Next.js trae un `AGENTS.md` que indica consultar `node_modules/next/dist/docs/` antes de escribir código, por posibles cambios respecto a versiones anteriores.
 
+## Contribuir
+
+Todo commit sigue la [convención de commits y atribución](./docs/COMMITS.md) (autor `Trinium MX`, coautores y push obligatorio).
+
 ## Estructura
 
 Ver §2.2 de `PLAN_MG.md`. Rutas: grupo `(site)` (público) y `(admin)` (`/demo/admin`, sin header/footer públicos).
