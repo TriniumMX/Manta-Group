@@ -1,6 +1,7 @@
-import { ArrowUpRight, Clock, MapPin } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 import { BRAND_CONTACT } from "@/config/contact";
 import type { WhatsAppIntent } from "@/config/whatsapp";
+import { SocialIcon } from "@/components/icons/SocialIcons";
 import { Container } from "@/components/layout/Container";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
 import type { BrandSlug } from "@/types/content";
@@ -66,12 +67,15 @@ export function BrandContactStrip({
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex min-h-8 items-center gap-1 text-small font-semibold text-ink"
+                    className="group inline-flex min-h-11 items-center gap-2 text-small font-semibold text-ink"
                   >
+                    <SocialIcon
+                      network={s.network}
+                      className="size-5 shrink-0 transition-transform duration-300 group-hover:scale-110"
+                    />
                     <span className="link-underline group-hover:bg-size-[100%_1px]">
                       {s.network}
                     </span>
-                    <ArrowUpRight aria-hidden className="size-3.5 text-accent-text" />
                     <span className="sr-only"> (se abre en una pestaña nueva)</span>
                   </a>
                 </li>

@@ -4,6 +4,7 @@ import { ArrowUpRight, MapPin } from "lucide-react";
 import { BRANDS, brandHref } from "@/config/brands";
 import { ADDRESS, BRAND_CONTACT } from "@/config/contact";
 import { SITE } from "@/config/site";
+import { SocialIcon } from "@/components/icons/SocialIcons";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -110,9 +111,15 @@ export default function ContactoPage() {
                             href={s.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="link-underline inline-flex min-h-11 items-center hover:text-ink"
+                            className="group inline-flex min-h-11 items-center gap-2 font-semibold text-ink-soft hover:text-ink"
                           >
-                            {s.network}
+                            <SocialIcon
+                              network={s.network}
+                              className="size-5 shrink-0 transition-transform duration-300 group-hover:scale-110"
+                            />
+                            <span className="link-underline group-hover:bg-size-[100%_1px]">
+                              {s.network}
+                            </span>
                             <span className="sr-only"> de {brand.name} (pestaña nueva)</span>
                           </a>
                         </li>

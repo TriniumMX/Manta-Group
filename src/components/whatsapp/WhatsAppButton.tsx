@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle } from "lucide-react";
 import type { WhatsAppIntent } from "@/config/whatsapp";
+import { WhatsApp } from "@/components/icons/SocialIcons";
 import { buttonClasses } from "@/components/ui/Button";
 import {
   buildWhatsAppMessage,
@@ -37,7 +37,7 @@ export function WhatsAppButton({
   const [open, setOpen] = useState(false);
   const url = buildWhatsAppUrl(brand, intent, item);
   const classes = buttonClasses({ variant, size, className });
-  const icon = <MessageCircle aria-hidden className="size-4 shrink-0" />;
+  const icon = <WhatsApp className="size-[1.125rem] shrink-0" />;
 
   if (url) {
     return (
