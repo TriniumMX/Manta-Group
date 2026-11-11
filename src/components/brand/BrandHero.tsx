@@ -79,7 +79,7 @@ function Actions({
         center && "justify-center",
       )}
     >
-      <span data-magnetic className="inline-flex">
+      <span className="inline-flex">
         <WhatsAppButton
           brand={brand.slug}
           intent={page.cta.intent}

@@ -137,12 +137,12 @@ export function HeroScene() {
             ))}
           </h1>
           <div className="mt-7 flex animate-cover-fade flex-wrap justify-center gap-3 [animation-delay:calc(var(--intro-delay)+520ms)]">
-            <span data-magnetic className="inline-flex">
+            <span className="inline-flex">
               <Button href={h.primaryCta.href} size="md" icon={ArrowDown}>
                 {h.primaryCta.label}
               </Button>
             </span>
-            <span data-magnetic className="inline-flex max-sm:hidden">
+            <span className="inline-flex max-sm:hidden">
               <Button href={h.secondaryCta.href} variant="secondary" size="md">
                 {h.secondaryCta.label}
               </Button>

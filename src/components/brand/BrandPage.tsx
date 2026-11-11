@@ -32,6 +32,7 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
   return (
     <div data-brand={brand.slug}>
       <BrandHero brand={brand} page={page} />
+      <BrandContactStrip slug={brand.slug} intent={page.cta.intent} ctaLabel={page.cta.label} />
 
       {/* Lo que ofrece */}
       <section id="oferta" aria-labelledby="oferta-title" className="bg-ivory py-20 md:py-32">
@@ -140,7 +141,7 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
             >
               {page.cta.title}
             </RevealTitle>
-            <span data-magnetic className="relative mt-10 inline-flex">
+            <span className="relative mt-10 inline-flex">
               <WhatsAppButton
                 brand={brand.slug}
                 intent={page.cta.intent}
@@ -154,7 +155,6 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
               Demo: el número de WhatsApp de {brand.name} está pendiente de configurar.
             </p>
           </div>
-          <BrandContactStrip slug={brand.slug} />
         </Container>
       </section>
 
@@ -182,7 +182,7 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
         brandName={brand.name}
         intent={page.cta.intent}
         label="WhatsApp"
-        afterId="portada"
+        afterId="contacto-rapido"
         beforeId="llamado"
       />
     </div>

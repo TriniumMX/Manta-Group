@@ -69,12 +69,12 @@ export function Closing() {
             {c.lead}
           </p>
           <div data-closing-item className="mt-10 flex flex-wrap justify-center gap-3">
-            <span data-magnetic className="inline-flex">
+            <span className="inline-flex">
               <WhatsAppButton brand="mg" intent="general" variant="inverse" size="lg">
                 {c.cta}
               </WhatsAppButton>
             </span>
-            <span data-magnetic className="inline-flex">
+            <span className="inline-flex">
               <Button
                 href={c.secondary.href}
                 variant="secondary"

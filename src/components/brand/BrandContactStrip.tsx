@@ -1,67 +1,91 @@
 import { ArrowUpRight, Clock, MapPin } from "lucide-react";
 import { BRAND_CONTACT } from "@/config/contact";
+import type { WhatsAppIntent } from "@/config/whatsapp";
+import { Container } from "@/components/layout/Container";
+import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
 import type { BrandSlug } from "@/types/content";
 
-const cell = "flex flex-col gap-2 rounded-[1.5rem] bg-cream p-6 ring-1 ring-ink/8 md:p-7";
 const label = "flex items-center gap-2 text-small font-semibold text-accent-text";
 
-/** Dónde encontrar la marca: dirección o puntos de venta, redes y horario. */
-export function BrandContactStrip({ slug }: { slug: BrandSlug }) {
+/**
+ * Barra de contacto inmediatamente después de la portada: dónde está la marca,
+ * horario, redes y WhatsApp, sin tener que bajar hasta el final.
+ */
+export function BrandContactStrip({
+  slug,
+  intent,
+  ctaLabel,
+}: {
+  slug: BrandSlug;
+  intent: WhatsAppIntent;
+  ctaLabel: string;
+}) {
   const c = BRAND_CONTACT[slug];
 
   return (
-    <div className="mt-4 grid gap-4 md:grid-cols-3">
-      <div className={cell}>
-        <p className={label}>
-          <MapPin aria-hidden className="size-4" />
-          {c.address ? "Visítanos" : "Encuéntranos en"}
-        </p>
-        {c.address ? (
-          <a
-            href={c.address.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group text-body text-ink"
-          >
-            <span className="link-underline group-hover:bg-size-[100%_1px]">
-              {c.address.street}, {c.address.area}
-            </span>
-            <span className="block text-ink-soft">{c.address.city}</span>
-            <span className="sr-only"> (abre Google Maps en una pestaña nueva)</span>
-          </a>
-        ) : (
-          <p className="text-body text-ink">{c.locations?.join(" · ")}</p>
-        )}
-      </div>
-
-      <div className={cell}>
-        <p className={label}>Redes sociales</p>
-        <ul className="flex flex-col gap-1">
-          {c.social.map((s) => (
-            <li key={s.url}>
+    <section id="contacto-rapido" aria-label="Contacto" className="bg-ivory pt-6 md:pt-8">
+      <Container>
+        <div className="grid gap-px overflow-hidden rounded-[1.5rem] bg-ink/8 ring-1 ring-ink/8 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] md:rounded-[1.75rem]">
+          <div className="flex flex-col gap-1.5 bg-cream p-5 md:p-6">
+            <p className={label}>
+              <MapPin aria-hidden className="size-4" />
+              {c.address ? "Ubicación" : "Puntos de venta"}
+            </p>
+            {c.address ? (
               <a
-                href={s.url}
+                href={c.address.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex min-h-11 items-center gap-2 text-body text-ink"
+                className="group text-small text-ink"
               >
-                <span className="link-underline group-hover:bg-size-[100%_1px]">{s.network}</span>
-                <span className="text-small text-ink-muted">/{s.handle}</span>
-                <ArrowUpRight aria-hidden className="size-4 text-accent-text" />
-                <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                <span className="link-underline font-semibold group-hover:bg-size-[100%_1px]">
+                  {c.address.street}, {c.address.area}
+                </span>
+                <span className="block text-ink-soft">{c.address.city}</span>
+                <span className="sr-only"> (abre Google Maps en una pestaña nueva)</span>
               </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+            ) : (
+              <p className="text-small font-semibold text-ink">{c.locations?.join(" · ")}</p>
+            )}
+          </div>
 
-      <div className={cell}>
-        <p className={label}>
-          <Clock aria-hidden className="size-4" />
-          Horario
-        </p>
-        <p className="text-body text-ink-soft">Pendiente de configuración</p>
-      </div>
-    </div>
+          <div className="flex flex-col gap-1.5 bg-cream p-5 md:p-6">
+            <p className={label}>
+              <Clock aria-hidden className="size-4" />
+              Horario
+            </p>
+            <p className="text-small text-ink-soft">Pendiente de configuración</p>
+          </div>
+
+          <div className="flex flex-col gap-1.5 bg-cream p-5 md:p-6">
+            <p className={label}>Redes sociales</p>
+            <ul className="flex flex-wrap gap-x-4">
+              {c.social.map((s) => (
+                <li key={s.url}>
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex min-h-8 items-center gap-1 text-small font-semibold text-ink"
+                  >
+                    <span className="link-underline group-hover:bg-size-[100%_1px]">
+                      {s.network}
+                    </span>
+                    <ArrowUpRight aria-hidden className="size-3.5 text-accent-text" />
+                    <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex items-center bg-cream p-5 sm:col-span-2 lg:col-span-1 md:p-6">
+            <WhatsAppButton brand={slug} intent={intent} size="md" className="w-full lg:w-auto">
+              {ctaLabel}
+            </WhatsAppButton>
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 }
