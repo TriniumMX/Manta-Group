@@ -1,17 +1,14 @@
 import { notFound } from "next/navigation";
-
-const MODULES = ["marcas", "productos", "menus", "servicios", "cursos", "galerias", "contacto"];
+import { ADMIN_MODULES, getModule } from "@/components/admin/config";
+import { ModuleView } from "@/components/admin/ModuleViews";
 
 export function generateStaticParams() {
-  return MODULES.map((module) => ({ module }));
+  return ADMIN_MODULES.map((m) => ({ module: m.id }));
 }
 
 export default async function AdminModulePage({ params }: { params: Promise<{ module: string }> }) {
   const { module } = await params;
-  if (!MODULES.includes(module)) notFound();
-  return (
-    <section className="p-8">
-      <h1 className="text-2xl font-semibold capitalize">{module}</h1>
-    </section>
-  );
+  const meta = getModule(module);
+  if (!meta) notFound();
+  return <ModuleView module={meta.id} />;
 }
