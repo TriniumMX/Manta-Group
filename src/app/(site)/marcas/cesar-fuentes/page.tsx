@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { BrandPlaceholderPage } from "@/components/brand/BrandPlaceholderPage";
+import { BrandPage } from "@/components/brand/BrandPage";
 
 export const metadata: Metadata = { title: "César Fuentes" };
 
 export default function Page() {
-  return <BrandPlaceholderPage slug="cesar-fuentes" />;
+  return <BrandPage slug="cesar-fuentes" />;
 }

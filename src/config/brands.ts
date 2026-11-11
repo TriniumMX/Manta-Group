@@ -9,7 +9,8 @@ export const BRANDS: Brand[] = [
     name: "César Fuentes",
     category: "Gastronomía holística",
     tagline: "Cocina con intención, servida como experiencia.",
-    description: "Gastronomía holística, catering, eventos y experiencias a la medida.",
+    description:
+      "Catering, banquetes, coffee breaks, brunch, canapés y catas para eventos empresariales y sociales en Querétaro, desde 2019.",
     experienceCategories: ["experiencias"],
     theme: BRAND_THEMES["cesar-fuentes"],
     heroSlot: {
@@ -27,7 +28,8 @@ export const BRANDS: Brand[] = [
     name: "La Trufa",
     category: "Chocolates artesanales",
     tagline: "Chocolate hecho a mano, pieza por pieza.",
-    description: "Chocolates artesanales y pedidos especiales para regalar o celebrar.",
+    description:
+      "Trufas, enjambres y macizos con cacao mexicano de Tabasco y cacaos de Bélgica, África y Suiza, desde 2020.",
     experienceCategories: ["artesanal"],
     theme: BRAND_THEMES["la-trufa"],
     heroSlot: {
@@ -45,7 +47,8 @@ export const BRANDS: Brand[] = [
     name: "Hoja Santa",
     category: "Restaurante",
     tagline: "Una mesa para volver.",
-    description: "Restaurante con dos menús de temporada y servicios complementarios.",
+    description:
+      "Cocina de casa del Chef Adolfo Gonzaga con ingredientes de San Juan del Río: desayunos, comidas, menús temáticos y cenas guiadas.",
     experienceCategories: ["restaurantes"],
     theme: BRAND_THEMES["hoja-santa"],
     heroSlot: {
@@ -64,7 +67,8 @@ export const BRANDS: Brand[] = [
     eyebrow: "Gastro Lab",
     category: "Formación gastronómica",
     tagline: "Un laboratorio para aprender cocina haciendo.",
-    description: "Cursos y talleres gastronómicos con calendario mensual.",
+    description:
+      "Cursos de cocina internacional, repostería, pan, barismo y coctelería, para adultos, niños y grupos, con calendario mensual.",
     experienceCategories: ["formacion"],
     theme: BRAND_THEMES["black-pimienta"],
     heroSlot: {
@@ -82,7 +86,8 @@ export const BRANDS: Brand[] = [
     name: "Camelia",
     category: "Productos artesanales de Querétaro",
     tagline: "Lo hecho a mano, con origen.",
-    description: "Productos artesanales de Querétaro, seleccionados por su oficio.",
+    description:
+      "Queso, miel, café, conservas, chocolate, pan, arte y la cerveza artesanal Queretha, de productores de distintos municipios de Querétaro.",
     experienceCategories: ["artesanal"],
     theme: BRAND_THEMES.camelia,
     heroSlot: { id: "camelia.hero", alt: "Productos artesanales sobre textil", aspect: "4/5" },
@@ -96,7 +101,8 @@ export const BRANDS: Brand[] = [
     name: "Agatha",
     category: "Galletería artesanal",
     tagline: "Galletas con oficio, para compartir.",
-    description: "Galletería artesanal por colecciones y presentaciones especiales.",
+    description:
+      "Galletas de mantequilla, linzer y de temporada, personalizadas y para eventos, con mantequilla y mermeladas propias.",
     experienceCategories: ["artesanal"],
     theme: BRAND_THEMES.agatha,
     heroSlot: { id: "agatha.hero", alt: "Galletas artesanales en charola", aspect: "16/9" },

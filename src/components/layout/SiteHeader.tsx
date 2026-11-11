@@ -31,14 +31,21 @@ export function SiteHeader() {
       data-brand={brand?.slug}
       className={cn(
         "sticky top-0 z-40 transition-[background-color,box-shadow,backdrop-filter] duration-300",
-        scrolled ? "bg-ivory/90 shadow-[0_1px_0_rgb(30_28_25/0.08)] backdrop-blur-md" : "bg-ivory",
+        scrolled
+          ? "bg-ivory/72 shadow-[0_1px_0_rgb(30_28_25/0.08)] backdrop-blur-xl backdrop-saturate-150"
+          : "bg-ivory",
       )}
     >
       {brand && <div aria-hidden className="h-1 bg-accent" />}
+      {/* Progreso de lectura (CSS: animation-timeline). */}
+      <div
+        aria-hidden
+        className="scroll-progress absolute inset-x-0 bottom-0 h-[2px] origin-left bg-accent"
+      />
       <Container
         className={cn(
           "flex items-center justify-between gap-6 transition-[height] duration-300",
-          scrolled ? "h-16" : "h-16 lg:h-20",
+          "h-16 lg:h-20",
         )}
       >
         <div className="flex min-w-0 items-center gap-3">

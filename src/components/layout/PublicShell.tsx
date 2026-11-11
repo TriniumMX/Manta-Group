@@ -1,3 +1,5 @@
+import { Magnetic } from "@/components/experience/Magnetic";
+import { SmoothScroll } from "@/components/experience/SmoothScroll";
 import { MAIN_ID, SkipLink } from "./SkipLink";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
@@ -12,6 +14,9 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <SiteFooter />
+      <SmoothScroll />
+      <Magnetic />
+      <div aria-hidden className="paper-grain" />
     </div>
   );
 }

@@ -4,6 +4,13 @@ import type { BrandSlug } from "@/types/content";
  * Números de WhatsApp por marca, en formato internacional sin "+" ni espacios
  * (ej. "5214420000000"). `null` = pendiente de configuración: el botón abre un
  * diálogo demostrativo en lugar de una conversación real.
+ *
+ * Números reales (MantaGroup2026.pdf) PENDIENTES de activar al salir de demo:
+ *   cesar-fuentes, la-trufa, black-pimienta, agatha → "524272276879"
+ *   hoja-santa                                       → "524272026431"
+ *   camelia                                          → "524422255599"
+ *   queretha (cerveza de Camelia, sin marca propia)  → "524443295188"
+ * Por ahora todos quedan en `null` (modo demo).
  */
 export const WHATSAPP_NUMBERS: Record<BrandSlug | "mg", string | null> = {
   mg: null,

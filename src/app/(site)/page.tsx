@@ -1,17 +1,23 @@
-import { BrandUniverse } from "@/components/home/BrandUniverse";
-import { ContactInvite } from "@/components/home/ContactInvite";
-import { Essence } from "@/components/home/Essence";
-import { ExperiencesGrid } from "@/components/home/ExperiencesGrid";
-import { Hero } from "@/components/home/Hero";
+import { Intro } from "@/components/experience/Intro";
+import { BrandSpecs } from "@/components/home/BrandSpecs";
+import { BrandStack } from "@/components/home/BrandStack";
+import { Closing } from "@/components/home/Closing";
+import { ExperienceBento } from "@/components/home/ExperienceBento";
+import { GalleryRail } from "@/components/home/GalleryRail";
+import { HeroScene } from "@/components/home/HeroScene";
+import { Manifesto } from "@/components/home/Manifesto";
 
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <BrandUniverse />
-      <ExperiencesGrid />
-      <Essence />
-      <ContactInvite />
+      <Intro />
+      <HeroScene />
+      <Manifesto />
+      <BrandStack />
+      <ExperienceBento />
+      <GalleryRail />
+      <BrandSpecs />
+      <Closing />
     </>
   );
 }

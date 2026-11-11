@@ -10,13 +10,13 @@ const base =
 
 const variants: Record<Variant, string> = {
   // Texto crema sobre accent-text: ≥ 5.5:1 en todas las marcas.
-  primary: "rounded-[4px] bg-accent-text text-cream hover:bg-ink",
+  primary: "rounded-full bg-accent-text text-cream hover:bg-ink",
   secondary:
-    "rounded-[4px] border border-ink/25 bg-transparent text-ink hover:border-ink hover:bg-cream",
-  ghost: "rounded-[4px] text-ink hover:bg-ink/5",
+    "rounded-full border border-ink/20 bg-transparent text-ink hover:border-ink hover:bg-cream",
+  ghost: "rounded-full text-ink hover:bg-ink/5",
   link: "text-accent-text link-underline px-0 min-h-0",
   // Para secciones oscuras (tone="ink").
-  inverse: "rounded-[4px] bg-cream text-ink hover:bg-sand",
+  inverse: "rounded-full bg-cream text-ink hover:bg-sand",
 };
 
 const sizes: Record<Size, string> = {

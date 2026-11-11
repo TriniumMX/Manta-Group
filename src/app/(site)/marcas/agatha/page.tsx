@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { BrandPlaceholderPage } from "@/components/brand/BrandPlaceholderPage";
+import { BrandPage } from "@/components/brand/BrandPage";
 
 export const metadata: Metadata = { title: "Agatha" };
 
 export default function Page() {
-  return <BrandPlaceholderPage slug="agatha" />;
+  return <BrandPage slug="agatha" />;
 }
