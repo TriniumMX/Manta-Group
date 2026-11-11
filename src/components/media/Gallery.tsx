@@ -87,6 +87,7 @@ export function Gallery({ items, label }: { items: MediaSlot[]; label: string })
 
       <dialog
         ref={dialog}
+        data-lenis-prevent
         aria-label={label}
         onCancel={(e) => {
           e.preventDefault();

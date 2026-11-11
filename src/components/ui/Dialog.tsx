@@ -82,6 +82,7 @@ export function Dialog({
   return (
     <dialog
       ref={ref}
+      data-lenis-prevent
       aria-labelledby={titleId}
       aria-describedby={description ? descId : undefined}
       onClose={handleClose}

@@ -62,6 +62,8 @@ export interface Course {
   durationLabel: string;
   instructor?: string;
   level?: "inicial" | "intermedio" | "avanzado";
+  /** Tema del curso (PDF: cocina internacional, repostería, pan…). */
+  topic?: string;
   featured?: boolean;
   isDemo: true;
 }
