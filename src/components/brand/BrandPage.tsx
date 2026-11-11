@@ -4,7 +4,9 @@ import { BRAND_PAGES } from "@/content/brand-pages";
 import { RevealTitle } from "@/components/experience/RevealTitle";
 import { Container } from "@/components/layout/Container";
 import { Gallery } from "@/components/media/Gallery";
+import { BrandModules } from "@/components/modules/brand/BrandModules";
 import { ServiceCards } from "@/components/modules/services/ServiceCards";
+import { BrandContactStrip } from "./BrandContactStrip";
 import { Reveal } from "@/components/ui/Reveal";
 import { StickyWhatsApp } from "@/components/whatsapp/StickyWhatsApp";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
@@ -88,8 +90,10 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
         )}
       </section>
 
+      <BrandModules blocks={page.modules} />
+
       {/* Galería */}
-      <section id="galeria" aria-labelledby="galeria-title" className="bg-ivory pb-20 md:pb-32">
+      <section id="galeria" aria-labelledby="galeria-title" className="bg-ivory py-20 md:py-32">
         <Container>
           <h2 id="galeria-title" className="sr-only">
             Galería de {brand.name}
@@ -150,6 +154,7 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
               Demo: el número de WhatsApp de {brand.name} está pendiente de configurar.
             </p>
           </div>
+          <BrandContactStrip slug={brand.slug} />
         </Container>
       </section>
 

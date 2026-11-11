@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { BRANDS, brandHref } from "@/config/brands";
+import { ADDRESS, BRAND_CONTACT } from "@/config/contact";
 import { SITE } from "@/config/site";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
 
-export const metadata: Metadata = { title: "Contacto" };
+export const metadata: Metadata = {
+  title: "Contacto",
+  description:
+    "WhatsApp, redes sociales y ubicación de las seis marcas de Manta Group en San Juan del Río, Querétaro.",
+};
 
 const display = "font-serif font-light tracking-[-0.035em] [font-variation-settings:'SOFT'_100]";
 
 /** Datos aún no proporcionados por Manta Group: no se inventan (PLAN_MG §1.3). */
-const PENDING = ["Correo", "Dirección", "Horarios", "Redes sociales"];
+const PENDING = ["Correo", "Horarios", "Redes del grupo"];
 
 export default function ContactoPage() {
   return (
@@ -35,6 +40,37 @@ export default function ContactoPage() {
           </p>
         </div>
 
+        {/* Dirección compartida */}
+        <a
+          href={ADDRESS.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group tone-ink mt-12 flex flex-col gap-6 rounded-[1.75rem] bg-ink p-7 text-cream md:mt-16 md:flex-row md:items-center md:justify-between md:rounded-[2.25rem] md:p-10"
+        >
+          <div className="flex items-start gap-5">
+            <span
+              aria-hidden
+              className="inline-flex size-14 shrink-0 items-center justify-center rounded-full bg-cream/10"
+            >
+              <MapPin className="size-6 text-sand" />
+            </span>
+            <div>
+              <p className="text-small font-semibold text-sand">Visítanos en</p>
+              <p
+                className={`${display} mt-2 text-[clamp(1.75rem,1.3rem+1.8vw,3rem)] leading-[1.05]`}
+              >
+                {ADDRESS.street}, {ADDRESS.area}
+              </p>
+              <p className="mt-1 text-body text-sand">{ADDRESS.city}</p>
+            </div>
+          </div>
+          <span className="inline-flex min-h-12 items-center gap-2 self-start rounded-full bg-cream px-6 text-[0.9375rem] font-semibold text-ink transition-colors group-hover:bg-sand md:self-auto">
+            Abrir en Google Maps
+            <ArrowUpRight aria-hidden className="size-4" />
+          </span>
+          <span className="sr-only"> (se abre en una pestaña nueva)</span>
+        </a>
+
         <ul className="mt-14 border-t border-ink/15 md:mt-20">
           <li className="border-b border-ink/15">
             <Reveal className="flex flex-col gap-5 py-7 md:flex-row md:items-center md:justify-between md:py-9">
@@ -51,33 +87,59 @@ export default function ContactoPage() {
               </WhatsAppButton>
             </Reveal>
           </li>
-          {BRANDS.map((brand) => (
-            <li key={brand.slug} data-brand={brand.slug} className="border-b border-ink/15">
-              <Reveal className="flex flex-col gap-5 py-7 md:flex-row md:items-center md:justify-between md:py-9">
-                <div>
-                  <h2 className={`${display} text-[clamp(2rem,1.4rem+2.6vw,3.75rem)] leading-[1]`}>
-                    {brand.name}
-                  </h2>
-                  <p className="mt-2 flex items-center gap-2.5 text-small font-semibold text-accent-text">
-                    <span aria-hidden className="size-2 rounded-full bg-accent" />
-                    {brand.category}
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <WhatsAppButton brand={brand.slug} intent="general" variant="secondary" size="lg">
-                    Escribir por WhatsApp
-                  </WhatsAppButton>
-                  <Link
-                    href={brandHref(brand.slug)}
-                    aria-label={`Ver ${brand.name}`}
-                    className="inline-flex size-14 items-center justify-center rounded-full border border-ink/20 text-ink transition-colors duration-300 hover:border-accent-text hover:bg-accent-text hover:text-cream"
-                  >
-                    <ArrowUpRight aria-hidden className="size-5" />
-                  </Link>
-                </div>
-              </Reveal>
-            </li>
-          ))}
+          {BRANDS.map((brand) => {
+            const c = BRAND_CONTACT[brand.slug];
+            return (
+              <li key={brand.slug} data-brand={brand.slug} className="border-b border-ink/15">
+                <Reveal className="flex flex-col gap-5 py-7 md:flex-row md:items-center md:justify-between md:py-9">
+                  <div>
+                    <h2
+                      className={`${display} text-[clamp(2rem,1.4rem+2.6vw,3.75rem)] leading-[1]`}
+                    >
+                      {brand.name}
+                    </h2>
+                    <p className="mt-2 flex items-center gap-2.5 text-small font-semibold text-accent-text">
+                      <span aria-hidden className="size-2 rounded-full bg-accent" />
+                      {brand.category}
+                    </p>
+                    <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-small text-ink-muted">
+                      {c.locations && <li>{c.locations.join(" · ")}</li>}
+                      {c.social.map((s) => (
+                        <li key={s.url}>
+                          <a
+                            href={s.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="link-underline inline-flex min-h-11 items-center hover:text-ink"
+                          >
+                            {s.network}
+                            <span className="sr-only"> de {brand.name} (pestaña nueva)</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <WhatsAppButton
+                      brand={brand.slug}
+                      intent="general"
+                      variant="secondary"
+                      size="lg"
+                    >
+                      Escribir por WhatsApp
+                    </WhatsAppButton>
+                    <Link
+                      href={brandHref(brand.slug)}
+                      aria-label={`Ver ${brand.name}`}
+                      className="inline-flex size-14 items-center justify-center rounded-full border border-ink/20 text-ink transition-colors duration-300 hover:border-accent-text hover:bg-accent-text hover:text-cream"
+                    >
+                      <ArrowUpRight aria-hidden className="size-5" />
+                    </Link>
+                  </div>
+                </Reveal>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="mt-16 rounded-[1.75rem] bg-cream p-7 ring-1 ring-ink/8 md:mt-24 md:p-10">
@@ -85,10 +147,10 @@ export default function ContactoPage() {
             Datos por confirmar
           </h2>
           <p className="mt-3 max-w-[56ch] text-body text-ink-soft">
-            Esta es una versión de demostración. Los números de WhatsApp abren un mensaje de ejemplo
-            y estos datos se publicarán cuando Manta Group los confirme.
+            Esta es una versión de demostración: los botones de WhatsApp muestran el mensaje que se
+            enviaría, y estos datos se publicarán cuando Manta Group los confirme.
           </p>
-          <dl className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-3">
             {PENDING.map((label) => (
               <div key={label} className="border-t border-ink/12 pt-4">
                 <dt className="text-small font-semibold text-ink">{label}</dt>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BRANDS, brandHref } from "@/config/brands";
+import { ADDRESS } from "@/config/contact";
 import { ADMIN_LINK, FOOTER_GROUP_LINKS, SITE } from "@/config/site";
 import { BrandMark } from "@/components/brand/BrandMark";
 import { DemoNotice } from "@/components/demo/DemoNotice";
@@ -47,16 +48,21 @@ export function SiteFooter() {
           </nav>
 
           <div className="col-span-2 md:col-span-2">
-            <h2 className="text-eyebrow text-stone">Contacto</h2>
-            {/* Datos de contacto pendientes: no se inventan (PLAN_MG §1.3). */}
-            <dl className="mt-4 space-y-3 text-small">
-              {["WhatsApp", "Correo", "Redes sociales"].map((label) => (
-                <div key={label}>
-                  <dt className="text-sand">{label}</dt>
-                  <dd className="text-stone">Pendiente de configuración</dd>
-                </div>
-              ))}
-            </dl>
+            <h2 className="text-eyebrow text-stone">Visítanos</h2>
+            <address className="mt-4 text-small text-sand not-italic">
+              <a
+                href={ADDRESS.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline hover:text-cream"
+              >
+                {ADDRESS.street}, {ADDRESS.area}, {ADDRESS.city}
+                <span className="sr-only"> (abre Google Maps en una pestaña nueva)</span>
+              </a>
+            </address>
+            <Link href="/contacto" className={`${linkClass} mt-3`}>
+              WhatsApp y redes por marca
+            </Link>
           </div>
         </div>
 

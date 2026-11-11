@@ -21,6 +21,7 @@ export interface MediaEntry {
 
 export const MEDIA: Record<string, MediaEntry> = {
   // Manta Group · fotografías reales de las marcas (MantaGroup2026.pdf, mejoradas)
+  "mg.founder": { src: "/media/products/p03-09-415x354.webp", position: "65% 50%" },
   "mg.hero": { src: "/media/products/p06-03-477x357.webp", position: "50% 45%", tone: "ink" },
 
   // Pila de marcas (Inicio): foto principal + inserto por marca
@@ -65,6 +66,9 @@ export const MEDIA: Record<string, MediaEntry> = {
   "agatha.hero": { src: "/media/products/p10-10-662x389.webp" },
   "camelia.queretha": { src: "/media/products/p09-09-526x633.webp" },
   "agatha.card": { src: "/media/products/p10-11-735x993.webp", tone: "accent" },
+  // Módulos de marca
+  "cesar-fuentes.clients": { src: "/media/products/p03-12-548x710.webp" },
+  "hoja-santa.chef": { src: "/media/products/p06-02-565x358.webp", position: "30% 50%" },
   // Galerías de las páginas de marca
   "cesar-fuentes.g1": { src: "/media/products/p03-10-400x347.webp" },
   "cesar-fuentes.g2": { src: "/media/products/p03-08-445x344.webp" },
@@ -73,7 +77,7 @@ export const MEDIA: Record<string, MediaEntry> = {
   "la-trufa.g2": { src: "/media/products/p04-12-432x559.webp" },
   "la-trufa.g3": { src: "/media/products/p04-13-411x308.webp" },
   "hoja-santa.g1": { src: "/media/products/p07-05-438x503.webp" },
-  "hoja-santa.g2": { src: "/media/products/p06-02-565x358.webp" },
+  "hoja-santa.g2": { src: "/media/products/p07-07-414x345.webp" },
   "hoja-santa.g3": { src: "/media/products/p07-08-529x397.webp" },
   "black-pimienta.g1": { src: "/media/products/p05-12-555x456.webp" },
   "black-pimienta.g2": { src: "/media/products/p05-10-398x302.webp" },
