@@ -2,7 +2,7 @@
 
 Prototipo comercial de alta fidelidad (TRINIUM). Ver [`PLAN_MG.md`](./PLAN_MG.md) para el plan completo.
 
-> Estado: **Bloque 1 — Base del proyecto**.
+> Estado: **Bloque 2 — Sistema visual y navegación** (bloque 1 completado).
 
 ## Ejecutar
 
@@ -40,3 +40,11 @@ Todo commit sigue la [convención de commits y atribución](./docs/COMMITS.md) (
 ## Estructura
 
 Ver §2.2 de `PLAN_MG.md`. Rutas: grupo `(site)` (público) y `(admin)` (`/demo/admin`, sin header/footer públicos).
+
+## Sistema visual (bloque 2)
+
+- Tokens de color, tipografía y temas por marca en `src/styles/globals.css` (espejo en `src/config/theme.ts`). Cada marca define `--accent` (decorativo) y `--accent-text` (texto pequeño, ≥ 4.5:1 sobre marfil); se activan con `data-brand="<slug>"`.
+- Escala tipográfica fija: `text-display`, `text-h1`, `text-h2`, `text-h3`, `text-eyebrow` (13 px, única excepción al mínimo de 14 px), `text-body`, `text-small`. Están registradas en `cn()` (`src/lib/utils.ts`) para que `tailwind-merge` no las confunda con colores.
+- Primitivas en `src/components/ui`: `Button`, `Badge`/`Chip`, `Dialog` (sobre `<dialog>` nativo), `Tabs`, `Field`/`Input`/`Textarea`/`Select`, `Toast`, `Eyebrow`/`Heading`/`Prose`/`Divider`/`Skeleton`, `Reveal`.
+- Navegación en `src/components/layout`: `SiteHeader` (con `BrandSwitcher` y `MobileNav`), `SiteFooter`, `Breadcrumb`, `SkipLink`, `Container`/`Section`, `PublicShell`.
+- Las páginas de marca usan `BrandPlaceholderPage` de forma **temporal**; se sustituye en los bloques 4 y 5.

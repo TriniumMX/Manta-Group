@@ -1,26 +1,235 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ==========================================================================
+   Manta Group · Sistema visual "Mesa editorial" (PLAN_MG §6)
+   Tokens provisionales: se sustituyen con los manuales de marca.
+   Espejo en TS: src/config/theme.ts
+   ========================================================================== */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* --- Paleta base (§6.2) ------------------------------------------------- */
+@theme {
+  --color-ivory: #f4efe6; /* Fondo principal */
+  --color-cream: #fbf8f2; /* Superficies elevadas, tarjetas */
+  --color-sand: #e8dfd0; /* Divisores, placeholders. NO fondo de texto pequeño en acento */
+  --color-ink: #1e1c19; /* Texto principal, secciones oscuras */
+  --color-ink-soft: #4a463f; /* Texto secundario (8.2:1) */
+  --color-ink-muted: #655e53; /* Metadatos/eyebrows sobre claros (5.6:1) */
+  --color-stone: #8b8478; /* PROHIBIDO como texto sobre claros. Solo bordes/iconos o texto sobre ink */
+  --color-olive: #5f6b45; /* Acento corporativo MG (5.0:1) */
+  --color-olive-deep: #3f4a2e; /* Hover, fondos de énfasis (8.2:1) */
+  --color-copper: #b5703e; /* Decorativo / texto ≥ 24 px (3.4:1) */
+  --color-copper-deep: #8f5126; /* Texto pequeño en cobre, botones (5.4:1) */
+  --color-terracotta: #a4503a; /* Acento cálido puntual, texto grande o fondos */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --container-site: 90rem; /* 1440 px */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-dialog-in: dialog-in 240ms var(--ease-editorial);
+  --animate-toast-in: toast-in 220ms var(--ease-editorial);
+
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --- Acento por marca (§6.3) --------------------------------------------
+   --accent       decorativo: fondos, líneas, iconos, texto grande
+   --accent-text  texto pequeño, enlaces, chips activos, botones con texto crema
+   Ambos con contraste ≥ 4.5:1 de accent-text sobre marfil (verificado).      */
+:root {
+  --accent: var(--color-olive);
+  --accent-text: var(--color-olive-deep);
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--color-ivory));
+  --surface-tint: color-mix(in oklab, var(--accent) 5%, var(--color-ivory));
+  --focus-ring: var(--accent-text);
+}
+
+[data-brand="cesar-fuentes"] {
+  --accent: #3f4a2e;
+  --accent-text: #3f4a2e; /* 8.2:1 */
+}
+[data-brand="la-trufa"] {
+  --accent: #4a2e25;
+  --accent-text: #4a2e25; /* 10.7:1 */
+}
+[data-brand="hoja-santa"] {
+  --accent: #3e5a3c;
+  --accent-text: #3e5a3c; /* 6.7:1 */
+}
+[data-brand="black-pimienta"] {
+  --accent: #c4853a;
+  --accent-text: #7d5119; /* 6.0:1 */
+}
+[data-brand="camelia"] {
+  --accent: #b9705e;
+  --accent-text: #8a4a3a; /* 5.9:1 */
+}
+[data-brand="agatha"] {
+  --accent: #c79a55;
+  --accent-text: #7a5a22; /* 5.5:1 */
+}
+
+[data-brand] {
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--color-ivory));
+  --surface-tint: color-mix(in oklab, var(--accent) 5%, var(--color-ivory));
+  --focus-ring: var(--accent-text);
+}
+
+/* Secciones oscuras: el anillo de foco pasa a crema para seguir siendo visible. */
+.tone-ink {
+  --focus-ring: var(--color-cream);
+}
+
+@theme inline {
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-surface-tint: var(--surface-tint);
+}
+
+/* --- Base ---------------------------------------------------------------- */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.958rem + 0.185vw, 1.125rem);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--accent-soft);
+    color: var(--color-ink);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  dialog::backdrop {
+    background: rgb(30 28 25 / 0.55);
+  }
+}
+
+/* --- Escala tipográfica fija (§6.4) --------------------------------------
+   Fluida entre 360 y 1440 px de viewport. Mínimo 14 px; única excepción:
+   eyebrow a 13 px, mayúsculas, peso 600, tracking 0.12em.                    */
+@utility text-display {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(2.5rem, 1.5rem + 4.444vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+@utility text-h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.125rem, 1.5rem + 2.778vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+@utility text-h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 1.417rem + 1.481vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+@utility text-h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.375rem, 1.25rem + 0.556vw, 1.75rem);
+  line-height: 1.2;
+}
+@utility text-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8125rem; /* 13 px: excepción declarada */
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+@utility text-body {
+  font-size: clamp(1rem, 0.958rem + 0.185vw, 1.125rem);
+  line-height: 1.6;
+}
+@utility text-small {
+  font-size: 0.875rem; /* 14 px: mínimo */
+  line-height: 1.5;
+}
+
+/* Subrayado animado para enlaces editoriales. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms var(--ease-editorial);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* Oculta la barra de scroll en carruseles horizontales (chips, strips). */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* --- Revelado al entrar en viewport (§6.7), usado por useReveal ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 500ms ease-out,
+    transform 500ms ease-out;
+}
+[data-reveal="visible"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Movimiento reducido: sin desplazamientos ni zoom -------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    transform: none;
+  }
 }
