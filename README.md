@@ -2,7 +2,7 @@
 
 Prototipo comercial de alta fidelidad (TRINIUM). Ver [`PLAN_MG.md`](./PLAN_MG.md) para el plan completo.
 
-> Estado: **Bloque 2 — Sistema visual y navegación** (bloque 1 completado).
+> Estado: **Bloque 3 — Página principal** (bloques 1 y 2 completados).
 
 ## Ejecutar
 
@@ -18,16 +18,16 @@ Entorno: Node 22, pnpm 9+.
 
 ## Versiones instaladas (fijadas sin `^`)
 
-| Paquete | Versión |
-|---|---|
-| next | 16.4.6 |
-| react / react-dom | 19.3.0 |
-| typescript | 5.9.3 |
-| tailwindcss | 4.3.3 |
-| lucide-react | 1.71.0 |
-| clsx | 2.1.1 |
-| tailwind-merge | 3.7.0 |
-| prettier | 3.9.10 |
+| Paquete           | Versión |
+| ----------------- | ------- |
+| next              | 16.4.6  |
+| react / react-dom | 19.3.0  |
+| typescript        | 5.9.3   |
+| tailwindcss       | 4.3.3   |
+| lucide-react      | 1.71.0  |
+| clsx              | 2.1.1   |
+| tailwind-merge    | 3.7.0   |
+| prettier          | 3.9.10  |
 
 `pnpm-lock.yaml` forma parte del repositorio.
 
@@ -48,3 +48,9 @@ Ver §2.2 de `PLAN_MG.md`. Rutas: grupo `(site)` (público) y `(admin)` (`/demo/
 - Primitivas en `src/components/ui`: `Button`, `Badge`/`Chip`, `Dialog` (sobre `<dialog>` nativo), `Tabs`, `Field`/`Input`/`Textarea`/`Select`, `Toast`, `Eyebrow`/`Heading`/`Prose`/`Divider`/`Skeleton`, `Reveal`.
 - Navegación en `src/components/layout`: `SiteHeader` (con `BrandSwitcher` y `MobileNav`), `SiteFooter`, `Breadcrumb`, `SkipLink`, `Container`/`Section`, `PublicShell`.
 - Las páginas de marca usan `BrandPlaceholderPage` de forma **temporal**; se sustituye en los bloques 4 y 5.
+
+## Página principal e imágenes (bloque 3)
+
+- Textos de Inicio en `src/content/home.ts` (provisionales).
+- Imágenes por slot en `src/config/media.ts`. Para poner una fotografía: copia el archivo a `public/media/...` y añade `src` al slot; sin `src` se muestra un `MediaPlaceholder` con la misma proporción.
+- WhatsApp: números en `src/config/whatsapp.ts` (todos `null` en el demo). Sin número, `WhatsAppButton` abre un diálogo con el mensaje que se enviaría; con número, abre `wa.me` en una pestaña nueva.

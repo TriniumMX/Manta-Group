@@ -12,8 +12,8 @@ export function SiteFooter() {
   return (
     <footer className="tone-ink bg-ink text-cream">
       <Container className="pt-16 pb-10 md:pt-24">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-5">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-12">
+          <div className="col-span-2 md:col-span-5">
             <BrandMark variant="footer" />
             <p className="mt-5 max-w-sm font-serif text-[1.5rem] leading-snug text-sand italic">
               {SITE.concept}
@@ -46,7 +46,7 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          <div className="md:col-span-2">
+          <div className="col-span-2 md:col-span-2">
             <h2 className="text-eyebrow text-stone">Contacto</h2>
             {/* Datos de contacto pendientes: no se inventan (PLAN_MG §1.3). */}
             <dl className="mt-4 space-y-3 text-small">
