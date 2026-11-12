@@ -41,7 +41,7 @@ export function SiteHeader() {
       {/* Progreso de lectura (CSS: animation-timeline). */}
       <div
         aria-hidden
-        className="scroll-progress absolute inset-x-0 bottom-0 h-[2px] origin-left bg-accent"
+        className="scroll-progress thread-ribbon thread-ribbon--woven absolute inset-x-0 bottom-0 origin-left [--thread:1.5px]"
       />
       <Container
         className={cn(

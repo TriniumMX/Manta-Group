@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 import { Collections } from "./Collections";
 import { AnimatedFigure } from "@/components/motion/AnimatedFigure";
+import { Stitch } from "@/components/identity/Stitch";
 
 const display = "font-serif font-light tracking-[-0.035em] [font-variation-settings:'SOFT'_100]";
 const h2 = cn(display, "max-w-[20ch] text-[clamp(2.25rem,1.4rem+3.4vw,4.5rem)] leading-[1]");
@@ -40,7 +41,7 @@ function Block({ block, index }: { block: BrandModuleBlock; index: number }) {
                   className="flex flex-col bg-cream p-8 md:p-10"
                 >
                   <dt className="flex items-center gap-2.5 text-small font-semibold text-accent-text">
-                    <span aria-hidden className="size-2 rounded-full bg-accent" />
+                    <Stitch className="size-3.5" />
                     {item.label}
                   </dt>
                   <dd
@@ -117,8 +118,15 @@ function Block({ block, index }: { block: BrandModuleBlock; index: number }) {
                   <li key={item.product} className="group border-b border-ink/15">
                     <Reveal
                       delay={(i % 4) * 60}
-                      className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-4 md:py-6"
+                      className="flex flex-col gap-1 py-5 sm:flex-row sm:items-center sm:gap-4 md:py-6"
                     >
+                      {item.image && (
+                        <SmartImage
+                          slot={{ id: item.image, alt: "" }}
+                          sizes="64px"
+                          className="mb-2 size-14 shrink-0 rounded-full bg-sand sm:mb-0 md:size-16"
+                        />
+                      )}
                       <span
                         className={cn(
                           display,
@@ -132,7 +140,7 @@ function Block({ block, index }: { block: BrandModuleBlock; index: number }) {
                         className="hidden h-px min-w-8 flex-1 translate-y-[-0.35em] border-b border-dotted border-ink/30 sm:block"
                       />
                       <span className="inline-flex shrink-0 items-center gap-2 text-small font-semibold text-accent-text">
-                        <span aria-hidden className="size-2 rounded-full bg-accent" />
+                        <Stitch className="size-3.5" />
                         {item.place}
                       </span>
                     </Reveal>
@@ -140,6 +148,11 @@ function Block({ block, index }: { block: BrandModuleBlock; index: number }) {
                 ))}
               </ul>
               {block.note && <p className="mt-6 text-body text-ink-soft">{block.note}</p>}
+              {block.items.some((i) => i.image) && (
+                <p className="mt-3 text-small text-ink-muted">
+                  Fotos de referencia: no representan los productos reales.
+                </p>
+              )}
             </div>
           </Container>
         </section>
@@ -221,7 +234,7 @@ function Block({ block, index }: { block: BrandModuleBlock; index: number }) {
             </Reveal>
             <div className="lg:col-span-7">
               <p className="inline-flex items-center gap-2.5 text-small font-semibold text-accent-text">
-                <span aria-hidden className="size-2 rounded-full bg-accent" />
+                <Stitch className="size-3.5" />
                 {block.role}
               </p>
               <RevealTitle

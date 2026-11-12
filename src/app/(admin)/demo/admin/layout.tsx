@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// El admin es una demo con pantalla de entrada y estado propio en el cliente:
+// no se valida como navegación instantánea (Next.js "instant").
+export const instant = false;
+
 // Layout propio del admin (sin header/footer públicos). El estado del admin vive
 // en AdminShell: se conserva entre módulos y se pierde al recargar.
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

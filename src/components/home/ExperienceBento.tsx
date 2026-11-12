@@ -105,7 +105,7 @@ export function ExperienceBento() {
                 key={item.id}
                 data-tile
                 className={cn(
-                  "group tone-ink relative isolate overflow-hidden rounded-[1.75rem] bg-ink text-cream",
+                  "group stitched tone-ink relative isolate overflow-hidden rounded-[1.75rem] bg-ink text-cream",
                   CELLS[i],
                 )}
               >

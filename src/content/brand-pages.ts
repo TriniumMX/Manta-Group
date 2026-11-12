@@ -30,7 +30,7 @@ export type BrandModuleBlock =
       kind: "origins";
       title: string;
       lead?: string;
-      items: { product: string; place: string }[];
+      items: { product: string; place: string; image?: string }[];
       note?: string;
     }
   | { kind: "collections"; title: string; lead?: string; items: Collection[] }
@@ -51,6 +51,8 @@ export interface BrandPageContent {
   services?: ServiceCardItem[];
   offerTitle: string;
   offers: string[];
+  /** Foto de referencia por elemento de la lista de oferta (id de media). */
+  offerImages?: Record<string, string>;
   /** Módulos que siguen a la oferta. */
   modules: BrandModuleBlock[];
   gallery: MediaSlot[];
@@ -150,6 +152,13 @@ export const BRAND_PAGES: Record<BrandSlug, BrandPageContent> = {
     hero: "cacao",
     offerTitle: "Piezas de chocolate artesanal",
     offers: ["Trufas", "Enjambres", "Macizos", "Chocolate amargo", "Chocolate sin azúcar", "Catas"],
+    offerImages: {
+      Trufas: "ref.trufas",
+      Enjambres: "ref.trufas-pistache",
+      Macizos: "ref.chocolate-amargo",
+      "Chocolate amargo": "ref.cacao",
+      Catas: "ref.chocolate-caliente",
+    },
     modules: [
       {
         kind: "specs",
@@ -307,19 +316,29 @@ export const BRAND_PAGES: Record<BrandSlug, BrandPageContent> = {
     hero: "split",
     offerTitle: "Lo más genuino del campo y el arte de Querétaro",
     offers: ["Queso", "Miel", "Café", "Conservas", "Chocolate", "Pan", "Cerveza", "Arte"],
+    offerImages: {
+      Queso: "ref.queso-tabla",
+      Miel: "ref.miel",
+      Café: "ref.cafe",
+      Conservas: "ref.conservas",
+      Chocolate: "ref.bombones",
+      Pan: "ref.pan",
+      Cerveza: "ref.cerveza",
+      Arte: "camelia.g1",
+    },
     modules: [
       {
         kind: "origins",
         title: "Cada producto, con su origen",
         lead: "Trabajamos con productores de los municipios del estado para garantizar el origen y la calidad de sus materias primas.",
         items: [
-          { product: "Queso de oveja", place: "Amealco" },
-          { product: "Cerveza artesanal", place: "San Juan del Río" },
-          { product: "Rompope y productos gourmet", place: "Tequisquiapan" },
+          { product: "Queso de oveja", place: "Amealco", image: "ref.queso" },
+          { product: "Cerveza artesanal", place: "San Juan del Río", image: "ref.cerveza" },
+          { product: "Rompope y productos gourmet", place: "Tequisquiapan", image: "ref.frascos" },
           { product: "Deshidratados", place: "Tequisquiapan" },
-          { product: "Dulces", place: "Bernal" },
-          { product: "Pan artesanal", place: "San Juan del Río" },
-          { product: "Chocolate", place: "Corregidora" },
+          { product: "Dulces", place: "Bernal", image: "ref.dulces" },
+          { product: "Pan artesanal", place: "San Juan del Río", image: "ref.pan" },
+          { product: "Chocolate", place: "Corregidora", image: "ref.bombones" },
           { product: "Piezas de mármol", place: "Tolimán" },
         ],
         note: "También bolsas, compostas, plantas y café.",
@@ -352,6 +371,11 @@ export const BRAND_PAGES: Record<BrandSlug, BrandPageContent> = {
     hero: "light",
     offerTitle: "Galletas para cada momento",
     offers: ["Tradicionales", "De temporada", "Personalizadas", "Para eventos", "Edición especial"],
+    offerImages: {
+      Tradicionales: "ref.galletas-mantequilla",
+      "De temporada": "ref.macarrones-colores",
+      "Edición especial": "ref.galletas-temporada",
+    },
     modules: [
       {
         kind: "collections",
@@ -369,6 +393,10 @@ export const BRAND_PAGES: Record<BrandSlug, BrandPageContent> = {
               "Pasticetas",
               "Sándwich",
             ],
+            images: {
+              "Pastas de mantequilla": "ref.galletas-mantequilla",
+              Linzer: "agatha.g2",
+            },
           },
           {
             name: "De temporada",
@@ -381,6 +409,9 @@ export const BRAND_PAGES: Record<BrandSlug, BrandPageContent> = {
               "Alemanas",
               "Vienesas",
             ],
+            images: {
+              Macarrones: "ref.macarrones",
+            },
           },
           { name: "Personalizadas", entries: ["De personajes", "Cumpleaños", "Profesiones"] },
           {
@@ -397,6 +428,7 @@ export const BRAND_PAGES: Record<BrandSlug, BrandPageContent> = {
     gallery: [
       { id: "agatha.g1", alt: "Plato de galletas de mantequilla sobre mantel de flores" },
       { id: "agatha.g2", alt: "Galletas linzer con centro de mermelada" },
+      { id: "ref.macarrones", alt: "Macarrones de colores en un plato (foto de referencia)" },
     ],
     fact: {
       highlight: "Hecho en casa",

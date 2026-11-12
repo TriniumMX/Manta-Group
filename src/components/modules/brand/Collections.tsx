@@ -2,11 +2,15 @@
 
 import { useId, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { SmartImage } from "@/components/media/SmartImage";
 import { GlidePill } from "@/components/motion/GlidePill";
+import { Stitch } from "@/components/identity/Stitch";
 
 export interface Collection {
   name: string;
   entries: string[];
+  /** Fotos de referencia por entrada (id de media). Las entradas sin foto llevan su marca. */
+  images?: Record<string, string>;
 }
 
 /**
@@ -97,13 +101,31 @@ export function Collections({ items, label }: { items: Collection[]; label: stri
               className="animate-toast-in"
               style={{ animationDelay: `${i * 45}ms`, animationFillMode: "both" }}
             >
-              <span className="inline-flex min-h-14 items-center gap-3 rounded-full bg-cream px-6 font-serif text-[1.375rem] font-light tracking-[-0.01em] ring-1 ring-ink/8 [font-variation-settings:'SOFT'_100] md:min-h-16 md:px-7 md:text-[1.75rem]">
-                <span aria-hidden className="size-2 shrink-0 rounded-full bg-accent" />
+              <span
+                className={cn(
+                  "inline-flex min-h-14 items-center gap-3 rounded-full bg-cream font-serif text-[1.375rem] font-light tracking-[-0.01em] ring-1 ring-ink/8 [font-variation-settings:'SOFT'_100] md:min-h-16 md:text-[1.75rem]",
+                  current.images?.[entry] ? "py-1.5 pr-6 pl-1.5 md:pr-7" : "px-6 md:px-7",
+                )}
+              >
+                {current.images?.[entry] ? (
+                  <SmartImage
+                    slot={{ id: current.images[entry], alt: "" }}
+                    sizes="56px"
+                    className="size-11 shrink-0 rounded-full bg-sand md:size-[3.25rem]"
+                  />
+                ) : (
+                  <Stitch className="size-3.5" />
+                )}
                 {entry}
               </span>
             </li>
           ))}
         </ul>
+        {current.images && (
+          <p className="mt-5 text-small text-ink-muted">
+            Fotos de referencia: no representan los productos reales.
+          </p>
+        )}
       </div>
     </div>
   );

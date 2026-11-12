@@ -9,6 +9,7 @@ import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
+import { Stitch } from "@/components/identity/Stitch";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -100,7 +101,7 @@ export default function ContactoPage() {
                       {brand.name}
                     </h2>
                     <p className="mt-2 flex items-center gap-2.5 text-small font-semibold text-accent-text">
-                      <span aria-hidden className="size-2 rounded-full bg-accent" />
+                      <Stitch className="size-3.5" />
                       {brand.category}
                     </p>
                     <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-small text-ink-muted">

@@ -6,6 +6,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { BRANDS, brandHref } from "@/config/brands";
 import { cn } from "@/lib/utils";
 import type { BrandSlug } from "@/types/content";
+import { Stitch } from "@/components/identity/Stitch";
 
 /**
  * Desplegable "Nuestras marcas" del header (escritorio).
@@ -88,7 +89,7 @@ export function BrandSwitcher({
                     current && "bg-accent-soft",
                   )}
                 >
-                  <span aria-hidden className="mt-1.5 size-2.5 shrink-0 rounded-full bg-accent" />
+                  <Stitch className="mt-1.5 size-3.5" />
                   <span className="min-w-0">
                     <span className="block font-serif text-[1.1875rem] leading-tight text-ink">
                       {brand.name}

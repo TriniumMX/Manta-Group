@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { HOME_MANIFESTO } from "@/content/home";
 import { Container } from "@/components/layout/Container";
 import { gsap, MOTION, useGSAP } from "@/lib/gsap";
+import { Greca } from "@/components/identity/Greca";
 
 /**
  * Manifiesto que se "enciende" palabra por palabra al avanzar el scroll.
@@ -56,6 +57,7 @@ export function Manifesto() {
             </span>
           ))}
         </p>
+        <Greca className="mx-auto mt-20 max-w-md text-ink/25 md:mt-28" />
         <div className="mt-12 flex justify-center">
           <Link
             href={m.link.href}

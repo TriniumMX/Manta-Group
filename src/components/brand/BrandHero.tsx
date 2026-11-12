@@ -9,6 +9,7 @@ import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
 import { cn } from "@/lib/utils";
 import type { Brand } from "@/types/content";
 import { ViewTransition } from "react";
+import { Stitch } from "@/components/identity/Stitch";
 
 const display =
   "font-serif font-light tracking-[-0.04em] [font-variation-settings:'SOFT'_100,'opsz'_144]";
@@ -56,7 +57,7 @@ function Pill({ brand, dark }: { brand: Brand; dark?: boolean }) {
           : "bg-cream text-accent-text ring-1 ring-ink/8",
       )}
     >
-      <span aria-hidden className="size-2 rounded-full bg-accent ring-1 ring-cream/30" />
+      <Stitch className={cn("size-3.5", dark && "text-sand")} />
       {brand.eyebrow ? `${brand.eyebrow}, ${brand.category.toLowerCase()}` : brand.category}
     </p>
   );
@@ -158,7 +159,7 @@ function HeroImage({
     // Destino de la transición entre páginas: la foto de la tarjeta de la marca
     // se transforma en esta (mismo `name` en BrandCard y BrandStack).
     <ViewTransition name={`marca-${brand.slug}`} share="morph" default="none">
-      <div className={cn("relative w-full overflow-hidden bg-sand", className)}>
+      <div className={cn("stitched relative w-full overflow-hidden bg-sand", className)}>
         <SmartImage
           slot={brand.heroSlot}
           preload

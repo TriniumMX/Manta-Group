@@ -5,14 +5,19 @@ import { ADMIN_LINK, FOOTER_GROUP_LINKS, SITE } from "@/config/site";
 import { BrandMark } from "@/components/brand/BrandMark";
 import { DemoNotice } from "@/components/demo/DemoNotice";
 import { Container } from "./Container";
+import { Greca } from "@/components/identity/Greca";
 
 const linkClass = "link-underline inline-flex min-h-11 items-center text-sand hover:text-cream";
 
 /** Footer corporativo (sección oscura). Combinaciones sobre ink: cream, sand, stone. */
 export function SiteFooter() {
   return (
-    <footer className="tone-ink bg-ink text-cream">
-      <Container className="pt-16 pb-10 md:pt-24">
+    <footer className="tone-ink weave relative bg-ink text-cream">
+      <div
+        aria-hidden
+        className="thread-ribbon thread-ribbon--woven absolute inset-x-0 top-0 [--thread:2px]"
+      />
+      <Container className="pt-20 pb-10 md:pt-28">
         <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-12">
           <div className="col-span-2 md:col-span-5">
             <BrandMark variant="footer" />
@@ -66,7 +71,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-cream/15 pt-6 text-small text-stone md:flex-row md:items-center md:justify-between">
+        <Greca className="mt-16 text-cream/20" />
+        <div className="mt-8 flex flex-col gap-4  pt-6 text-small text-stone md:flex-row md:items-center md:justify-between">
           <DemoNotice />
           <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-6">
             <Link

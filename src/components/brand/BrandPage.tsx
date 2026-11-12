@@ -4,6 +4,7 @@ import { BRAND_PAGES } from "@/content/brand-pages";
 import { RevealTitle } from "@/components/experience/RevealTitle";
 import { Container } from "@/components/layout/Container";
 import { Gallery } from "@/components/media/Gallery";
+import { SmartImage } from "@/components/media/SmartImage";
 import { BrandModules } from "@/components/modules/brand/BrandModules";
 import { ServiceCards } from "@/components/modules/services/ServiceCards";
 import { BrandContactStrip } from "./BrandContactStrip";
@@ -81,14 +82,27 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
                     >
                       {offer}
                     </span>
-                    <span
-                      aria-hidden
-                      className="size-3 shrink-0 rounded-full bg-accent transition-transform duration-500 group-hover:scale-150"
-                    />
+                    {page.offerImages?.[offer] ? (
+                      <SmartImage
+                        slot={{ id: page.offerImages[offer], alt: "" }}
+                        sizes="80px"
+                        className="size-16 shrink-0 rounded-full bg-sand ring-4 ring-cream transition-transform duration-500 group-hover:scale-110 md:size-20"
+                      />
+                    ) : (
+                      <span
+                        aria-hidden
+                        className="size-3 shrink-0 rounded-full bg-accent transition-transform duration-500 group-hover:scale-150"
+                      />
+                    )}
                   </Reveal>
                 </li>
               ))}
             </ul>
+            {page.offerImages && (
+              <p className="text-small text-ink-muted lg:col-span-8 lg:col-start-5">
+                Fotos de referencia: no representan los productos reales.
+              </p>
+            )}
           </Container>
         )}
       </section>
@@ -108,7 +122,7 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
       {/* Dato protagonista */}
       <section
         aria-label="Dato de la marca"
-        className="tone-ink bg-ink py-24 text-center text-cream md:py-36"
+        className="tone-ink weave bg-ink py-24 text-center text-cream md:py-36"
       >
         <Container>
           {parseFigure(page.fact.highlight) ? (
@@ -141,7 +155,7 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
       {/* Llamado a WhatsApp */}
       <section id="llamado" aria-labelledby="cta-title" className="bg-ivory py-16 md:py-24">
         <Container>
-          <div className="tone-ink relative flex flex-col items-center overflow-hidden rounded-[2rem] bg-accent-text px-6 py-20 text-center text-cream md:rounded-[2.5rem] md:py-28">
+          <div className="tone-ink weave relative flex flex-col items-center overflow-hidden rounded-[2rem] bg-accent-text px-6 py-20 text-center text-cream md:rounded-[2.5rem] md:py-28">
             <div
               aria-hidden
               className="pointer-events-none absolute -top-1/2 left-1/2 size-[48rem] -translate-x-1/2 rounded-full bg-cream/8 blur-[100px]"

@@ -91,7 +91,7 @@ export function Gallery({ items, label }: { items: MediaSlot[]; label: string })
               <motion.div
                 layoutId={reduce ? undefined : sharedId(i)}
                 transition={SPRING_LAYOUT}
-                className="relative h-full w-full overflow-hidden rounded-[1.5rem] bg-sand md:rounded-[2rem]"
+                className="stitched relative h-full w-full overflow-hidden rounded-[1.5rem] bg-sand md:rounded-[2rem]"
                 style={{ opacity: index === i ? 0 : 1 }}
               >
                 <SmartImage

@@ -20,16 +20,26 @@ export interface MenuItemRow {
   id: string;
   name: string;
   description: string;
+  badge?: RowBadge;
 }
 export interface MenuSectionRow {
   id: string;
   name: string;
   items: MenuItemRow[];
+  badge?: RowBadge;
+}
+/** Datos del menú temático del mes (PDF: menús con personajes históricos, artistas y festividades). */
+export interface MenuTheme {
+  title: string;
+  month: string;
+  blurb: string;
 }
 export interface MenuRow {
   id: string;
   name: string;
   sections: MenuSectionRow[];
+  /** Solo el menú temático lo lleva. */
+  theme?: MenuTheme;
 }
 
 export interface AdminData {
@@ -66,6 +76,28 @@ const productImage: Record<BrandSlug, string> = {
   agatha: "agatha.g2",
 };
 
+/** Foto de referencia por producto (solo donde coincide con lo que es; si no, una genérica de la marca). */
+const REF_BY_NAME: Record<string, string> = {
+  trufas: "ref.trufas",
+  enjambres: "ref.trufas-pistache",
+  macizos: "ref.chocolate-amargo",
+  "chocolate-amargo": "ref.cacao",
+  "chocolate-sin-azucar": "ref.bombones",
+  catas: "ref.chocolate-caliente",
+  "queso-de-oveja": "ref.queso",
+  "cerveza-artesanal": "ref.cerveza",
+  "rompope-y-productos-gourmet": "ref.frascos",
+  deshidratados: "ref.mercado",
+  dulces: "ref.dulces",
+  "pan-artesanal": "ref.pan",
+  chocolate: "ref.bombones",
+  "piezas-de-marmol": "camelia.g1",
+  "pastas-de-mantequilla": "ref.galletas-mantequilla",
+  linzer: "agatha.g2",
+  macarrones: "ref.macarrones",
+};
+const refImage = (name: string, fallback: string) => REF_BY_NAME[slug(name)] ?? fallback;
+
 function seedProducts(): AdminRow[] {
   const rows: AdminRow[] = [];
   // La Trufa: piezas del PDF.
@@ -75,7 +107,7 @@ function seedProducts(): AdminRow[] {
         brand: "la-trufa",
         name,
         category: name === "Catas" ? "Experiencias" : "Chocolates",
-        image: productImage["la-trufa"],
+        image: refImage(name, productImage["la-trufa"]),
         featured: i < 2,
       }),
     );
@@ -89,7 +121,7 @@ function seedProducts(): AdminRow[] {
           brand: "camelia",
           name: o.product,
           category: o.place,
-          image: productImage.camelia,
+          image: refImage(o.product, productImage.camelia),
           featured: false,
         }),
       );
@@ -105,7 +137,7 @@ function seedProducts(): AdminRow[] {
             brand: "agatha",
             name,
             category: col.name,
-            image: productImage.agatha,
+            image: refImage(name, "ref.galletas-temporada"),
             featured: i === 0,
           }),
         );
@@ -147,7 +179,8 @@ function seedMenus(): MenuRow[] {
     {
       id: "tematico",
       name: "Menú temático del mes",
-      sections: [{ id: "por-definir", name: "Por definir", items: [] }],
+      sections: [],
+      theme: { title: "", month: "", blurb: "" },
     },
   ];
 }
@@ -223,6 +256,18 @@ export function createSeed(today: string): AdminData {
 
 /** Imágenes disponibles para "Reemplazar imagen" (simulado). */
 export const IMAGE_CHOICES = [
+  "ref.macarrones",
+  "ref.macarrones-colores",
+  "ref.trufas",
+  "ref.trufas-pistache",
+  "ref.bombones",
+  "ref.chocolate-amargo",
+  "ref.queso",
+  "ref.conservas",
+  "ref.miel",
+  "ref.pan",
+  "ref.cafe",
+  "ref.galletas-mantequilla",
   "cesar-fuentes.g1",
   "cesar-fuentes.g2",
   "cesar-fuentes.g3",

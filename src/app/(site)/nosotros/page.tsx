@@ -9,6 +9,7 @@ import { Container } from "@/components/layout/Container";
 import { SmartImage } from "@/components/media/SmartImage";
 import { Reveal } from "@/components/ui/Reveal";
 import { AnimatedFigure } from "@/components/motion/AnimatedFigure";
+import { Stitch } from "@/components/identity/Stitch";
 
 export const metadata: Metadata = {
   title: "Nosotros",
@@ -76,7 +77,7 @@ export default function NosotrosPage() {
           </div>
           <div className="lg:col-span-7">
             <p className="inline-flex items-center gap-2.5 text-small font-semibold text-accent-text">
-              <span aria-hidden className="size-2 rounded-full bg-accent" />
+              <Stitch className="size-3.5" />
               {f.role}
             </p>
             <RevealTitle

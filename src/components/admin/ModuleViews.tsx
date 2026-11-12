@@ -2,15 +2,15 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowUp, ExternalLink, ImageIcon, Pencil, Plus } from "lucide-react";
+import { ExternalLink, ImageIcon, Pencil, Plus } from "lucide-react";
 import { BRANDS, brandHref, getBrandBySlug } from "@/config/brands";
 import { longDate } from "@/lib/calendar";
-import type { AdminRow, MenuRow } from "@/content/admin/seed";
+import type { AdminRow } from "@/content/admin/seed";
+import { SocialIcon } from "@/components/icons/SocialIcons";
 import { SmartImage } from "@/components/media/SmartImage";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Field";
 import { cn } from "@/lib/utils";
-import { GlidePill } from "@/components/motion/GlidePill";
 import type { BrandSlug } from "@/types/content";
 import { useAdmin, type TableModule } from "./AdminProvider";
 import {
@@ -25,6 +25,7 @@ import {
   type FieldDef,
 } from "./AdminUI";
 import { getModule, type AdminModuleId } from "./config";
+import { MenusView } from "./MenusEditor";
 
 const brandName = (slug: unknown) => getBrandBySlug(String(slug))?.name ?? String(slug);
 
@@ -427,6 +428,36 @@ const CONTACT_FIELDS: FieldDef[] = [
   { name: "social", label: "Redes sociales" },
 ];
 
+/** Redes como etiquetas con ícono; el texto largo se parte en vez de desbordar la tarjeta. */
+function SocialChips({ value }: { value: AdminRow[string] }) {
+  const items = String(value ?? "")
+    .split("·")
+    .map((x) => x.trim())
+    .filter(Boolean);
+  if (items.length === 0) {
+    return <span className="text-ink-muted italic">Pendiente de configuración</span>;
+  }
+  return (
+    <ul className="flex min-w-0 flex-wrap gap-2">
+      {items.map((item) => {
+        const [network, ...rest] = item.split("/");
+        const known = network === "Facebook" || network === "Instagram";
+        return (
+          <li
+            key={item}
+            className="inline-flex min-w-0 max-w-full items-center gap-2 rounded-full bg-ivory py-1.5 pr-3 pl-2.5 ring-1 ring-ink/10"
+          >
+            {known && <SocialIcon network={network} className="size-4.5 shrink-0" />}
+            <span className="min-w-0 [overflow-wrap:anywhere] text-ink">
+              {known ? rest.join("/") : item}
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 function ContactView() {
   const meta = getModule("contacto")!;
   const { state, update } = useAdmin();
@@ -437,7 +468,10 @@ function ContactView() {
       <PageTitle title={meta.label} description={meta.description} />
       <ul className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {state.data.contacto.map((c) => (
-          <li key={c.id} className="flex flex-col rounded-[1.5rem] bg-cream p-6 ring-1 ring-ink/8">
+          <li
+            key={c.id}
+            className="flex min-w-0 flex-col rounded-[1.5rem] bg-cream p-6 ring-1 ring-ink/8"
+          >
             <div className="flex items-start justify-between gap-3">
               <span className="space-y-1">
                 <BrandTag slug={c.brand} />
@@ -452,21 +486,34 @@ function ContactView() {
                 <Pencil aria-hidden className="size-4.5" />
               </button>
             </div>
-            <dl className="mt-5 space-y-3 text-small">
+            <dl className="mt-5 space-y-4 text-small">
               {[
                 ["WhatsApp", c.whatsapp ? `${c.whatsapp} · ${c.whatsappStatus}` : ""],
                 ["Correo", c.email],
                 ["Dirección", c.address],
                 ["Horarios", c.hours],
-                ["Redes", c.social],
               ].map(([label, value]) => (
-                <div key={String(label)} className="grid grid-cols-[6rem_1fr] gap-3">
+                <div
+                  key={String(label)}
+                  className="grid min-w-0 grid-cols-[5.5rem_minmax(0,1fr)] gap-3"
+                >
                   <dt className="text-ink-muted">{label}</dt>
-                  <dd className={cn(value ? "text-ink" : "text-ink-muted italic")}>
+                  <dd
+                    className={cn(
+                      "min-w-0 [overflow-wrap:anywhere]",
+                      value ? "text-ink" : "text-ink-muted italic",
+                    )}
+                  >
                     {value ? String(value) : "Pendiente de configuración"}
                   </dd>
                 </div>
               ))}
+              <div className="grid min-w-0 grid-cols-[5.5rem_minmax(0,1fr)] gap-3">
+                <dt className="text-ink-muted">Redes</dt>
+                <dd className="min-w-0">
+                  <SocialChips value={c.social} />
+                </dd>
+              </div>
             </dl>
           </li>
         ))}
@@ -482,164 +529,6 @@ function ContactView() {
           setEditing(null);
         }}
       />
-    </>
-  );
-}
-
-/* ---------- Menús (reordenar sin arrastrar) ---------- */
-
-function move<T>(list: T[], i: number, dir: -1 | 1) {
-  const j = i + dir;
-  if (j < 0 || j >= list.length) return list;
-  const next = [...list];
-  [next[i], next[j]] = [next[j], next[i]];
-  return next;
-}
-
-function MenusView() {
-  const meta = getModule("menus")!;
-  const { state, setMenus } = useAdmin();
-  const [active, setActive] = useState(state.data.menus[0]?.id);
-  const menu = state.data.menus.find((m) => m.id === active) ?? state.data.menus[0];
-
-  const apply = (next: MenuRow, label: string) =>
-    setMenus(
-      state.data.menus.map((m) => (m.id === next.id ? next : m)),
-      label,
-    );
-
-  const reorderBtn =
-    "inline-flex size-9 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-ink/6 hover:text-ink disabled:opacity-30";
-
-  return (
-    <>
-      <PageTitle title={meta.label} description={meta.description} />
-      <div
-        role="tablist"
-        aria-label="Menús"
-        className="mt-8 inline-flex rounded-full bg-cream p-1.5 ring-1 ring-ink/8"
-      >
-        {state.data.menus.map((m) => (
-          <button
-            key={m.id}
-            role="tab"
-            type="button"
-            aria-selected={m.id === menu.id}
-            onClick={() => setActive(m.id)}
-            className={cn(
-              "relative isolate min-h-10 rounded-full px-5 text-small font-semibold transition-colors",
-              m.id === menu.id ? "text-cream" : "text-ink-soft hover:text-ink",
-            )}
-          >
-            {m.id === menu.id && <GlidePill layoutId="admin-menu-tab" className="bg-ink" />}
-            {m.name}
-          </button>
-        ))}
-      </div>
-      <div role="tabpanel" className="mt-6 space-y-4">
-        {menu.sections.map((sec, si) => (
-          <section
-            key={sec.id}
-            aria-labelledby={`sec-${sec.id}`}
-            className="rounded-[1.5rem] bg-cream p-5 ring-1 ring-ink/8 md:p-6"
-          >
-            <div className="flex items-center justify-between gap-3">
-              <h2
-                id={`sec-${sec.id}`}
-                className="font-serif text-[1.625rem] leading-none font-light"
-              >
-                {sec.name}
-              </h2>
-              <span className="flex">
-                <button
-                  type="button"
-                  className={reorderBtn}
-                  disabled={si === 0}
-                  aria-label={`Subir sección ${sec.name}`}
-                  onClick={() =>
-                    apply(
-                      { ...menu, sections: move(menu.sections, si, -1) },
-                      `Sección movida: ${sec.name}`,
-                    )
-                  }
-                >
-                  <ArrowUp aria-hidden className="size-4" />
-                </button>
-                <button
-                  type="button"
-                  className={reorderBtn}
-                  disabled={si === menu.sections.length - 1}
-                  aria-label={`Bajar sección ${sec.name}`}
-                  onClick={() =>
-                    apply(
-                      { ...menu, sections: move(menu.sections, si, 1) },
-                      `Sección movida: ${sec.name}`,
-                    )
-                  }
-                >
-                  <ArrowDown aria-hidden className="size-4" />
-                </button>
-              </span>
-            </div>
-            {sec.items.length === 0 ? (
-              <p className="mt-4 text-small text-ink-muted">
-                Sin platillos todavía (pendiente de Manta Group).
-              </p>
-            ) : (
-              <ol className="mt-4 divide-y divide-ink/8 border-t border-ink/8">
-                {sec.items.map((item, ii) => (
-                  <li key={item.id} className="flex items-center justify-between gap-3 py-2.5">
-                    <span className="flex items-center gap-3 text-body">
-                      <span className="w-6 text-small text-ink-muted tabular-nums">{ii + 1}</span>
-                      {item.name}
-                    </span>
-                    <span className="flex">
-                      <button
-                        type="button"
-                        className={reorderBtn}
-                        disabled={ii === 0}
-                        aria-label={`Subir ${item.name}`}
-                        onClick={() =>
-                          apply(
-                            {
-                              ...menu,
-                              sections: menu.sections.map((s, k) =>
-                                k === si ? { ...s, items: move(s.items, ii, -1) } : s,
-                              ),
-                            },
-                            `Platillo movido: ${item.name}`,
-                          )
-                        }
-                      >
-                        <ArrowUp aria-hidden className="size-4" />
-                      </button>
-                      <button
-                        type="button"
-                        className={reorderBtn}
-                        disabled={ii === sec.items.length - 1}
-                        aria-label={`Bajar ${item.name}`}
-                        onClick={() =>
-                          apply(
-                            {
-                              ...menu,
-                              sections: menu.sections.map((s, k) =>
-                                k === si ? { ...s, items: move(s.items, ii, 1) } : s,
-                              ),
-                            },
-                            `Platillo movido: ${item.name}`,
-                          )
-                        }
-                      >
-                        <ArrowDown aria-hidden className="size-4" />
-                      </button>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            )}
-          </section>
-        ))}
-      </div>
     </>
   );
 }

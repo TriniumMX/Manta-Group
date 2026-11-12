@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import { Input, Select, Textarea } from "@/components/ui/Field";
 import { cn } from "@/lib/utils";
+import { Stitch } from "@/components/identity/Stitch";
 
 /* ---------- Piezas pequeñas ---------- */
 
@@ -21,7 +22,7 @@ export function BrandTag({ slug }: { slug: unknown }) {
       data-brand={brand.slug}
       className="inline-flex items-center gap-2 text-small font-semibold text-ink"
     >
-      <span aria-hidden className="size-2.5 rounded-full bg-accent ring-1 ring-ink/10" />
+      <Stitch className="size-3.5" />
       {brand.name}
     </span>
   );
@@ -373,7 +374,7 @@ export function ImagePicker({
   onClose: () => void;
   onPick: (id: string) => void;
 }) {
-  const options = IMAGE_CHOICES.filter((id) => id !== current).slice(0, 6);
+  const options = IMAGE_CHOICES.filter((id) => id !== current).slice(0, 12);
   return (
     <Dialog
       open={open}

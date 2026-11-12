@@ -30,7 +30,7 @@ export const ADMIN_MODULES: AdminModuleMeta[] = [
   {
     id: "productos",
     label: "Productos",
-    description: "Catálogos de La Trufa, Camelia y Agatha.",
+    description: "Catálogos de La Trufa, Camelia y Agatha. Las fotos son de referencia.",
     icon: Package,
   },
   {

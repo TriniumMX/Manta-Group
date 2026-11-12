@@ -491,3 +491,74 @@ html.lenis body {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/* ==========================================================================
+   Identidad de Manta Group: "manta" es una tela y el grupo, seis hilos (las
+   seis marcas) tejidos en una sola pieza. Tres elementos propios:
+   · hilos     → listón de seis hilos (progreso, divisores)
+   · puntada   → bordes bordados sobre las fotografías
+   · tejido    → textura de tela en superficies oscuras, y greca escalonada
+   ========================================================================== */
+
+/* Listón de seis hilos, uno por marca. --thread = grosor de cada hilo. */
+.thread-ribbon {
+  --thread: 1px;
+  height: calc(var(--thread) * 6);
+  background:
+    linear-gradient(#3f4a2e, #3f4a2e) 0 calc(var(--thread) * 0) / 100% var(--thread) no-repeat,
+    linear-gradient(#4a2e25, #4a2e25) 0 calc(var(--thread) * 1) / 100% var(--thread) no-repeat,
+    linear-gradient(#3e5a3c, #3e5a3c) 0 calc(var(--thread) * 2) / 100% var(--thread) no-repeat,
+    linear-gradient(#c4853a, #c4853a) 0 calc(var(--thread) * 3) / 100% var(--thread) no-repeat,
+    linear-gradient(#b9705e, #b9705e) 0 calc(var(--thread) * 4) / 100% var(--thread) no-repeat,
+    linear-gradient(#c79a55, #c79a55) 0 calc(var(--thread) * 5) / 100% var(--thread) no-repeat;
+}
+/* Con trama: hilos verticales encima; así es tela y no franjas. */
+.thread-ribbon--woven {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgb(251 248 242 / 0.38) 0 1px,
+      transparent 1px calc(var(--thread) * 3)
+    ),
+    linear-gradient(#3f4a2e, #3f4a2e) 0 calc(var(--thread) * 0) / 100% var(--thread) no-repeat,
+    linear-gradient(#4a2e25, #4a2e25) 0 calc(var(--thread) * 1) / 100% var(--thread) no-repeat,
+    linear-gradient(#3e5a3c, #3e5a3c) 0 calc(var(--thread) * 2) / 100% var(--thread) no-repeat,
+    linear-gradient(#c4853a, #c4853a) 0 calc(var(--thread) * 3) / 100% var(--thread) no-repeat,
+    linear-gradient(#b9705e, #b9705e) 0 calc(var(--thread) * 4) / 100% var(--thread) no-repeat,
+    linear-gradient(#c79a55, #c79a55) 0 calc(var(--thread) * 5) / 100% var(--thread) no-repeat;
+}
+
+/* Puntada: borde bordado cosido sobre una fotografía redondeada. */
+/* El contenedor debe estar posicionado (relative/absolute) por quien lo usa. */
+.stitched::after {
+  content: "";
+  position: absolute;
+  inset: 0.625rem;
+  border: 2px dashed rgb(251 248 242 / 0.92);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 0 1px rgb(30 28 25 / 0.35));
+}
+
+/* Tejido: sarga diagonal sutil para superficies oscuras (como una tela). */
+.weave {
+  background-image:
+    repeating-linear-gradient(45deg, rgb(251 248 242 / 0.05) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.14) 0 1px, transparent 1px 5px);
+}
+.weave-light {
+  background-image:
+    repeating-linear-gradient(45deg, rgb(30 28 25 / 0.035) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(-45deg, rgb(251 248 242 / 0.5) 0 1px, transparent 1px 5px);
+}
+
+/* Greca escalonada: franja de motivo mesoamericano; toma el color del texto. */
+.greca {
+  height: 0.875rem;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='14' viewBox='0 0 20 14'%3E%3Cpath d='M0 12H4V8H8V4H12V8H16V12H20' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='miter'/%3E%3C/svg%3E")
+    repeat-x center / auto 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='14' viewBox='0 0 20 14'%3E%3Cpath d='M0 12H4V8H8V4H12V8H16V12H20' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='miter'/%3E%3C/svg%3E")
+    repeat-x center / auto 100%;
+}

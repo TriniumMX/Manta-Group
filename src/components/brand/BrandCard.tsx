@@ -5,6 +5,7 @@ import { SmartImage } from "@/components/media/SmartImage";
 import { cn } from "@/lib/utils";
 import type { Brand, MediaSlot } from "@/types/content";
 import { ViewTransition } from "react";
+import { Stitch } from "@/components/identity/Stitch";
 
 /**
  * Tarjeta de marca con fotografía. `compact` es la versión pequeña para
@@ -32,7 +33,7 @@ export function BrandCard({
       <ViewTransition name={`marca-${brand.slug}`} share="morph" default="none">
         <div
           className={cn(
-            "relative overflow-hidden bg-sand",
+            "stitched relative overflow-hidden bg-sand",
             compact
               ? "aspect-[4/5] rounded-[1.25rem]"
               : "aspect-[4/3] rounded-[1.75rem] md:rounded-[2rem]",
@@ -63,7 +64,7 @@ export function BrandCard({
           compact ? "mt-4" : "mt-6",
         )}
       >
-        <span aria-hidden className="size-2 shrink-0 rounded-full bg-accent" />
+        <Stitch className="size-3.5" />
         {brand.category}
       </p>
       <h3

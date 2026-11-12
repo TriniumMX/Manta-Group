@@ -87,6 +87,33 @@ export const MEDIA: Record<string, MediaEntry> = {
   "camelia.g3": { src: "/media/products/p09-10-512x743.webp" },
   "agatha.g1": { src: "/media/products/p10-11-735x993.webp" },
   "agatha.g2": { src: "/media/products/p10-10-662x389.webp" },
+
+  // Fotos de REFERENCIA (Unsplash, licencia libre): solo para que la demo se sienta
+  // con contenido. No representan los productos reales de Manta Group (ver docs/CREDITS.md).
+  "ref.macarrones": { src: "/media/ref/macarrones.webp", credit: "Babs Gorniak / Unsplash" },
+  "ref.macarrones-colores": { src: "/media/ref/macarrones-colores.webp", credit: "Baher Khairy / Unsplash" },
+  "ref.macarrones-pastel": { src: "/media/ref/macarrones-pastel.webp", credit: "Holly Stratton / Unsplash" },
+  "ref.trufas": { src: "/media/ref/trufas.webp", credit: "Merve Aydin / Unsplash" },
+  "ref.trufas-pistache": { src: "/media/ref/trufas-pistache.webp", credit: "Monika Grabkowska / Unsplash" },
+  "ref.bombones": { src: "/media/ref/bombones.webp", credit: "Monique Carrati / Unsplash" },
+  "ref.chocolate-amargo": { src: "/media/ref/chocolate-amargo.webp", credit: "Amit Singh / Unsplash" },
+  "ref.cacao": { src: "/media/ref/cacao.webp", credit: "Tetiana Bykovets / Unsplash" },
+  "ref.chocolate-caliente": { src: "/media/ref/chocolate-caliente.webp", credit: "Hannah Pemberton / Unsplash" },
+  "ref.queso": { src: "/media/ref/queso.webp", credit: "Farhad Ibrahimzade / Unsplash" },
+  "ref.queso-tabla": { src: "/media/ref/queso-tabla.webp", credit: "Andra C Taylor Jr / Unsplash" },
+  "ref.cerveza": { src: "/media/ref/cerveza.webp", credit: "Eddi Aguirre / Unsplash" },
+  "ref.conservas": { src: "/media/ref/conservas.webp", credit: "Olia Gozha / Unsplash" },
+  "ref.mermelada": { src: "/media/ref/mermelada.webp", credit: "Rob Wicks / Unsplash" },
+  "ref.miel": { src: "/media/ref/miel.webp", credit: "Rob Wicks / Unsplash" },
+  "ref.frascos": { src: "/media/ref/frascos.webp", credit: "Maxim Tolchinskiy / Unsplash" },
+  "ref.pan": { src: "/media/ref/pan.webp", credit: "Nathan Dumlao / Unsplash" },
+  "ref.cafe": { src: "/media/ref/cafe.webp", credit: "Sergey Kotenev / Unsplash" },
+  "ref.cafe-taza": { src: "/media/ref/cafe-taza.webp", credit: "Mike Kenneally / Unsplash" },
+  "ref.galletas-mantequilla": { src: "/media/ref/galletas-mantequilla.webp", credit: "Orva Studio / Unsplash" },
+  "ref.galletas-temporada": { src: "/media/ref/galletas-temporada.webp", credit: "Monika Grabkowska / Unsplash" },
+  "ref.galletas-chocolate": { src: "/media/ref/galletas-chocolate.webp", credit: "Jennifer Pallian / Unsplash" },
+  "ref.dulces": { src: "/media/ref/dulces.webp", credit: "Girl with red hat / Unsplash" },
+  "ref.mercado": { src: "/media/ref/mercado.webp", credit: "Tobias Schäfer / Unsplash" },
 };
 
 export function getMedia(id: string): MediaEntry {

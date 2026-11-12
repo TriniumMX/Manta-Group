@@ -9,6 +9,7 @@ import { Dialog } from "@/components/ui/Dialog";
 import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import type { BrandSlug } from "@/types/content";
+import { Stitch } from "@/components/identity/Stitch";
 
 /** Navegación móvil a pantalla completa con las marcas como lista principal. */
 export function MobileNav({
@@ -47,7 +48,7 @@ export function MobileNav({
                     aria-current={current ? "page" : undefined}
                     className="flex min-h-14 items-center gap-3 py-3"
                   >
-                    <span aria-hidden className="size-2.5 shrink-0 rounded-full bg-accent" />
+                    <Stitch className="size-3.5" />
                     <span className="min-w-0 flex-1">
                       <span
                         className={cn(

@@ -10,6 +10,7 @@ import { SmartImage } from "@/components/media/SmartImage";
 import { gsap, MOTION, useGSAP } from "@/lib/gsap";
 import { RevealTitle } from "@/components/experience/RevealTitle";
 import { ViewTransition } from "react";
+import { Stitch } from "@/components/identity/Stitch";
 
 /**
  * Seis tarjetas que se apilan al hacer scroll (position: sticky). Cuando la
@@ -106,7 +107,7 @@ export function BrandStack() {
                       className="relative block p-2.5 md:p-3 lg:order-2 lg:col-span-7"
                     >
                       <ViewTransition name={`marca-${brand.slug}`} share="morph" default="none">
-                        <div className="relative h-full overflow-hidden rounded-[1.25rem] bg-sand md:rounded-[1.75rem]">
+                        <div className="stitched relative h-full overflow-hidden rounded-[1.25rem] bg-sand md:rounded-[1.75rem]">
                           <div data-stack-photo className="absolute -inset-y-[8%] inset-x-0">
                             <SmartImage
                               slot={photos.main}
@@ -124,7 +125,7 @@ export function BrandStack() {
                     {/* Texto */}
                     <div className="flex min-h-0 flex-col justify-between gap-6 px-6 pt-5 pb-6 md:px-10 md:pb-10 lg:order-1 lg:col-span-5 lg:py-10 lg:pr-14 lg:pl-10 xl:py-14 xl:pr-16 xl:pl-14">
                       <div className="flex items-center gap-2.5 text-small font-semibold text-accent-text">
-                        <span aria-hidden className="size-2 rounded-full bg-accent" />
+                        <Stitch className="size-3.5" />
                         {brand.eyebrow
                           ? `${brand.eyebrow}, ${brand.category.toLowerCase()}`
                           : brand.category}

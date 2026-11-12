@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/Container";
 import { gsap, MOTION, useGSAP } from "@/lib/gsap";
 import { RevealTitle } from "@/components/experience/RevealTitle";
 import { AnimatedFigure } from "@/components/motion/AnimatedFigure";
+import { Stitch } from "@/components/identity/Stitch";
 
 /**
  * Ficha de datos reales por marca, en la sección oscura de contrapunto.
@@ -51,7 +52,7 @@ export function BrandSpecs() {
     <section
       ref={root}
       aria-labelledby="specs-title"
-      className="tone-ink bg-ink py-24 text-cream md:py-32 lg:py-40"
+      className="tone-ink weave bg-ink py-24 text-cream md:py-32 lg:py-40"
     >
       <Container>
         <RevealTitle
@@ -83,10 +84,7 @@ export function BrandSpecs() {
                   href={brandHref(slug)}
                   className="group mt-auto inline-flex min-h-11 items-center gap-2.5 self-start pt-6 text-small font-semibold text-cream"
                 >
-                  <span
-                    aria-hidden
-                    className="size-2 rounded-full bg-accent ring-1 ring-cream/30"
-                  />
+                  <Stitch className="size-3.5 text-sand" />
                   <span className="link-underline group-hover:bg-size-[100%_1px]">
                     {brand.name}
                   </span>

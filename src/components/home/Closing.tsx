@@ -8,6 +8,7 @@ import { RevealTitle } from "@/components/experience/RevealTitle";
 import { Button } from "@/components/ui/Button";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
 import { gsap, MOTION, useGSAP } from "@/lib/gsap";
+import { Stitch } from "@/components/identity/Stitch";
 
 /**
  * Cierre: un panel olivo que entra enmarcado y se expande hasta ocupar todo el
@@ -56,7 +57,7 @@ export function Closing() {
     <section ref={root} aria-labelledby="cierre-title" className="bg-ivory">
       <div
         data-closing-panel
-        className="tone-ink flex min-h-[min(100svh,56rem)] flex-col items-center justify-center bg-olive-deep px-4 py-28 text-center text-cream md:px-6 md:py-36"
+        className="tone-ink weave flex min-h-[min(100svh,56rem)] flex-col items-center justify-center bg-olive-deep px-4 py-28 text-center text-cream md:px-6 md:py-36"
       >
         <RevealTitle
           id="cierre-title"
@@ -97,10 +98,7 @@ export function Closing() {
                   href={brandHref(brand.slug)}
                   className="inline-flex min-h-11 items-center gap-2.5 rounded-full bg-cream/10 px-5 text-small font-semibold text-cream ring-1 ring-cream/20 transition-colors duration-300 hover:bg-cream hover:text-ink"
                 >
-                  <span
-                    aria-hidden
-                    className="size-2 rounded-full bg-accent ring-1 ring-cream/40"
-                  />
+                  <Stitch className="size-3.5 text-sand" />
                   {brand.name}
                 </Link>
               </li>
