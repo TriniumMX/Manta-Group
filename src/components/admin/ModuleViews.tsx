@@ -10,6 +10,7 @@ import { SmartImage } from "@/components/media/SmartImage";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Field";
 import { cn } from "@/lib/utils";
+import { GlidePill } from "@/components/motion/GlidePill";
 import type { BrandSlug } from "@/types/content";
 import { useAdmin, type TableModule } from "./AdminProvider";
 import {
@@ -526,10 +527,11 @@ function MenusView() {
             aria-selected={m.id === menu.id}
             onClick={() => setActive(m.id)}
             className={cn(
-              "min-h-10 rounded-full px-5 text-small font-semibold transition-colors",
-              m.id === menu.id ? "bg-ink text-cream" : "text-ink-soft hover:text-ink",
+              "relative isolate min-h-10 rounded-full px-5 text-small font-semibold transition-colors",
+              m.id === menu.id ? "text-cream" : "text-ink-soft hover:text-ink",
             )}
           >
+            {m.id === menu.id && <GlidePill layoutId="admin-menu-tab" className="bg-ink" />}
             {m.name}
           </button>
         ))}

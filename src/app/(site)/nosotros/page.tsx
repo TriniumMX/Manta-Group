@@ -8,6 +8,7 @@ import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Container } from "@/components/layout/Container";
 import { SmartImage } from "@/components/media/SmartImage";
 import { Reveal } from "@/components/ui/Reveal";
+import { AnimatedFigure } from "@/components/motion/AnimatedFigure";
 
 export const metadata: Metadata = {
   title: "Nosotros",
@@ -120,7 +121,7 @@ export default function NosotrosPage() {
                   <p
                     className={`${display} text-[clamp(3rem,2rem+3vw,5rem)] leading-none text-copper-deep`}
                   >
-                    {m.year}
+                    <AnimatedFigure text={m.year} />
                   </p>
                   <p className="mt-4 max-w-[28ch] text-body text-ink-soft">{m.text}</p>
                 </Reveal>

@@ -4,6 +4,7 @@ import { brandHref } from "@/config/brands";
 import { SmartImage } from "@/components/media/SmartImage";
 import { cn } from "@/lib/utils";
 import type { Brand, MediaSlot } from "@/types/content";
+import { ViewTransition } from "react";
 
 /**
  * Tarjeta de marca con fotografía. `compact` es la versión pequeña para
@@ -28,31 +29,34 @@ export function BrandCard({
       data-brand={brand.slug}
       className={cn("group block", className)}
     >
-      <div
-        className={cn(
-          "relative overflow-hidden bg-sand",
-          compact
-            ? "aspect-[4/5] rounded-[1.25rem]"
-            : "aspect-[4/3] rounded-[1.75rem] md:rounded-[2rem]",
-        )}
-      >
-        <SmartImage
-          slot={{ ...(media ?? brand.cardSlot), alt: "" }}
-          sizes={
-            sizes ?? (compact ? "(min-width: 1024px) 18vw, 45vw" : "(min-width: 768px) 46vw, 100vw")
-          }
-          className="absolute inset-0"
-          imageClassName="transition-transform duration-[1.2s] ease-(--ease-editorial) group-hover:scale-[1.05]"
-        />
-        {!compact && (
-          <span
-            aria-hidden
-            className="absolute right-4 bottom-4 inline-flex size-12 items-center justify-center rounded-full bg-cream text-ink transition-colors duration-300 group-hover:bg-accent-text group-hover:text-cream"
-          >
-            <ArrowUpRight className="size-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </span>
-        )}
-      </div>
+      <ViewTransition name={`marca-${brand.slug}`} share="morph" default="none">
+        <div
+          className={cn(
+            "relative overflow-hidden bg-sand",
+            compact
+              ? "aspect-[4/5] rounded-[1.25rem]"
+              : "aspect-[4/3] rounded-[1.75rem] md:rounded-[2rem]",
+          )}
+        >
+          <SmartImage
+            slot={{ ...(media ?? brand.cardSlot), alt: "" }}
+            sizes={
+              sizes ??
+              (compact ? "(min-width: 1024px) 18vw, 45vw" : "(min-width: 768px) 46vw, 100vw")
+            }
+            className="absolute inset-0"
+            imageClassName="transition-transform duration-[1.2s] ease-(--ease-editorial) group-hover:scale-[1.05]"
+          />
+          {!compact && (
+            <span
+              aria-hidden
+              className="absolute right-4 bottom-4 inline-flex size-12 items-center justify-center rounded-full bg-cream text-ink transition-colors duration-300 group-hover:bg-accent-text group-hover:text-cream"
+            >
+              <ArrowUpRight className="size-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
+          )}
+        </div>
+      </ViewTransition>
       <p
         className={cn(
           "flex items-center gap-2.5 text-small font-semibold text-accent-text",

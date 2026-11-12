@@ -8,6 +8,7 @@ import { BrandMark } from "@/components/brand/BrandMark";
 import { Button } from "@/components/ui/Button";
 import { useScrolled } from "@/hooks/useScrolled";
 import { cn } from "@/lib/utils";
+import { SharedLayoutBg } from "@/components/vendor/beui/shared-layout-bg";
 import { BrandSwitcher } from "./BrandSwitcher";
 import { Container } from "./Container";
 import { MobileNav } from "./MobileNav";
@@ -80,7 +81,12 @@ export function SiteHeader() {
         </div>
 
         <nav aria-label="Principal" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+          <SharedLayoutBg
+            as="ul"
+            inset={0}
+            className="flex-row items-center gap-1"
+            pillClassName="rounded-full bg-ink/6"
+          >
             {MAIN_NAV.map((item) =>
               item.href === "/marcas" ? (
                 <li key={item.href}>
@@ -103,7 +109,7 @@ export function SiteHeader() {
                 </li>
               ),
             )}
-          </ul>
+          </SharedLayoutBg>
         </nav>
 
         <div className="flex items-center gap-2">

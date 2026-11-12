@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useAdmin } from "./AdminProvider";
 import { ADMIN_MODULES, moduleHref } from "./config";
 import { PageTitle, Pill } from "./AdminUI";
+import { AnimatedFigure } from "@/components/motion/AnimatedFigure";
 
 /** Dashboard: contadores, accesos, próximos cursos y últimos cambios simulados. */
 export function Dashboard() {
@@ -59,7 +60,7 @@ export function Dashboard() {
               </span>
               <span>
                 <span className="block font-serif text-[2.75rem] leading-none font-light tabular-nums">
-                  {counts[id].total}
+                  <AnimatedFigure text={String(counts[id].total)} />
                 </span>
                 <span
                   className={cn(

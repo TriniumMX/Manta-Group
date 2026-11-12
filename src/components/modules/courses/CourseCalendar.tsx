@@ -18,8 +18,8 @@ import {
   ymKey,
   type YearMonth,
 } from "@/lib/calendar";
-import { Dialog } from "@/components/ui/Dialog";
 import { cn } from "@/lib/utils";
+import { GlidePill } from "@/components/motion/GlidePill";
 import type { Course } from "@/types/content";
 import { useCourses } from "./CoursesProvider";
 
@@ -34,13 +34,12 @@ const navBtn =
  * Teclado en la vista mes: flechas entre días, Inicio/Fin de semana, Enter abre.
  */
 export function CourseCalendar() {
-  const { today, courses, openCourse } = useCourses();
+  const { today, courses, openCourse, openDay: openDayList } = useCourses();
   const wide = useMediaQuery("(min-width: 768px)", true);
   const [viewChoice, setViewChoice] = useState<View | null>(null);
   const view: View = viewChoice ?? (wide ? "month" : "agenda");
   const [offset, setOffset] = useState(0);
   const [focusDay, setFocusDay] = useState<number | null>(null);
-  const [dayOpen, setDayOpen] = useState<string | null>(null);
   const cells = useRef<Map<number, HTMLButtonElement>>(new Map());
 
   const ref = today ? ymFromIso(today) : null;
@@ -72,7 +71,7 @@ export function CourseCalendar() {
   const openDay = (iso: string) => {
     const list = byDay.get(iso) ?? [];
     if (list.length === 1) openCourse(list[0]);
-    else if (list.length > 1) setDayOpen(iso);
+    else if (list.length > 1) openDayList(iso, list);
   };
 
   const moveFocus = (day: number) => {
@@ -99,7 +98,6 @@ export function CourseCalendar() {
 
   const weeks = Math.ceil((lead + total) / 7);
   const agendaDays = [...byDay.keys()].sort();
-  const dayList = dayOpen ? (byDay.get(dayOpen) ?? []) : [];
 
   return (
     <div className="rounded-[1.75rem] bg-cream p-4 ring-1 ring-ink/8 md:rounded-[2.25rem] md:p-8">
@@ -160,10 +158,11 @@ export function CourseCalendar() {
                 aria-pressed={view === v}
                 onClick={() => setViewChoice(v)}
                 className={cn(
-                  "inline-flex min-h-10 items-center gap-2 rounded-full px-4 text-small font-semibold transition-colors",
-                  view === v ? "bg-accent-text text-cream" : "text-ink-soft hover:text-ink",
+                  "relative isolate inline-flex min-h-10 items-center gap-2 rounded-full px-4 text-small font-semibold transition-colors",
+                  view === v ? "text-cream" : "text-ink-soft hover:text-ink",
                 )}
               >
+                {view === v && <GlidePill layoutId="calendar-view" className="bg-accent-text" />}
                 <Icon aria-hidden className="size-4" />
                 {label}
               </button>
@@ -308,34 +307,6 @@ export function CourseCalendar() {
           })}
         </ol>
       )}
-
-      {/* Varios cursos en un día */}
-      <Dialog
-        open={dayOpen !== null}
-        onClose={() => setDayOpen(null)}
-        title={dayOpen ? longDate(dayOpen) : "Cursos del día"}
-        size="sm"
-      >
-        <ul className="space-y-2">
-          {dayList.map((c) => (
-            <li key={c.id}>
-              <button
-                type="button"
-                onClick={() => {
-                  setDayOpen(null);
-                  openCourse(c);
-                }}
-                className="flex w-full flex-col items-start rounded-[1rem] bg-ivory px-4 py-3 text-left ring-1 ring-ink/8 transition-colors hover:ring-accent-text"
-              >
-                <span className="font-semibold text-ink">{c.name}</span>
-                <span className="text-small text-ink-muted">
-                  {c.startTime} a {c.endTime} h · {c.durationLabel}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </Dialog>
     </div>
   );
 }

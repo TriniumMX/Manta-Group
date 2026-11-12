@@ -9,6 +9,7 @@ import { Container } from "@/components/layout/Container";
 import { SmartImage } from "@/components/media/SmartImage";
 import { gsap, MOTION, useGSAP } from "@/lib/gsap";
 import { RevealTitle } from "@/components/experience/RevealTitle";
+import { ViewTransition } from "react";
 
 /**
  * Seis tarjetas que se apilan al hacer scroll (position: sticky). Cuando la
@@ -104,15 +105,17 @@ export function BrandStack() {
                       aria-hidden
                       className="relative block p-2.5 md:p-3 lg:order-2 lg:col-span-7"
                     >
-                      <div className="relative h-full overflow-hidden rounded-[1.25rem] bg-sand md:rounded-[1.75rem]">
-                        <div data-stack-photo className="absolute -inset-y-[8%] inset-x-0">
-                          <SmartImage
-                            slot={photos.main}
-                            sizes="(min-width: 1024px) 56vw, 100vw"
-                            className="absolute inset-0"
-                          />
+                      <ViewTransition name={`marca-${brand.slug}`} share="morph" default="none">
+                        <div className="relative h-full overflow-hidden rounded-[1.25rem] bg-sand md:rounded-[1.75rem]">
+                          <div data-stack-photo className="absolute -inset-y-[8%] inset-x-0">
+                            <SmartImage
+                              slot={photos.main}
+                              sizes="(min-width: 1024px) 56vw, 100vw"
+                              className="absolute inset-0"
+                            />
+                          </div>
                         </div>
-                      </div>
+                      </ViewTransition>
                       <div className="absolute bottom-6 left-6 hidden w-[24%] max-w-[15rem] lg:w-[30%] overflow-hidden rounded-[1.25rem] shadow-[0_24px_48px_-16px_rgb(30_28_25/0.5)] ring-[6px] ring-cream md:block lg:bottom-10 lg:-left-10">
                         <SmartImage slot={photos.inset} sizes="240px" className="aspect-[4/5]" />
                       </div>

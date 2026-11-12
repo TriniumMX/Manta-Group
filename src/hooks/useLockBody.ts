@@ -1,6 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
+import type Lenis from "lenis";
+
+declare global {
+  interface Window {
+    /** Instancia de scroll suave (components/experience/SmoothScroll). */
+    __lenis?: Lenis;
+  }
+}
 
 // Contador compartido para soportar diálogos anidados (ficha → WhatsApp).
 let locks = 0;
@@ -18,6 +26,8 @@ export function useLockBody(active: boolean) {
       previousPaddingRight = body.style.paddingRight;
       body.style.overflow = "hidden";
       if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`;
+      // El scroll suave (Lenis) también se pausa mientras haya algo abierto.
+      window.__lenis?.stop();
     }
     locks += 1;
     return () => {
@@ -25,6 +35,7 @@ export function useLockBody(active: boolean) {
       if (locks === 0) {
         body.style.overflow = previousOverflow;
         body.style.paddingRight = previousPaddingRight;
+        window.__lenis?.start();
       }
     };
   }, [active]);

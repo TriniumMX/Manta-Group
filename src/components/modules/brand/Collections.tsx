@@ -2,6 +2,7 @@
 
 import { useId, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { GlidePill } from "@/components/motion/GlidePill";
 
 export interface Collection {
   name: string;
@@ -64,12 +65,18 @@ export function Collections({ items, label }: { items: Collection[]; label: stri
                 tabIndex={selected ? 0 : -1}
                 onClick={() => setActive(i)}
                 className={cn(
-                  "min-h-11 shrink-0 rounded-full px-5 text-small font-semibold whitespace-nowrap transition-colors duration-300",
+                  "relative isolate min-h-11 shrink-0 rounded-full px-5 text-small font-semibold whitespace-nowrap transition-colors duration-300",
                   selected
-                    ? "bg-accent-text text-cream shadow-[0_8px_20px_-8px_rgb(30_28_25/0.4)]"
+                    ? "text-cream"
                     : "bg-cream text-ink-soft ring-1 ring-ink/8 hover:text-ink md:bg-transparent md:ring-0",
                 )}
               >
+                {selected && (
+                  <GlidePill
+                    layoutId={`${baseId}-pill`}
+                    className="bg-accent-text shadow-[0_8px_20px_-8px_rgb(30_28_25/0.4)]"
+                  />
+                )}
                 {c.name}
               </button>
             );

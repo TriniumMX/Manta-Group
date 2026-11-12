@@ -7,6 +7,7 @@ import { HOME_SPECS } from "@/content/home";
 import { Container } from "@/components/layout/Container";
 import { gsap, MOTION, useGSAP } from "@/lib/gsap";
 import { RevealTitle } from "@/components/experience/RevealTitle";
+import { AnimatedFigure } from "@/components/motion/AnimatedFigure";
 
 /**
  * Ficha de datos reales por marca, en la sección oscura de contrapunto.
@@ -75,7 +76,7 @@ export function BrandSpecs() {
                 className="flex flex-col bg-ink p-7 md:p-9 lg:p-10"
               >
                 <p className="font-serif text-[clamp(2.25rem,1.6rem+2.4vw,3.75rem)] leading-none font-light tracking-[-0.03em] text-copper [font-variation-settings:'SOFT'_100]">
-                  {highlight}
+                  <AnimatedFigure text={highlight} />
                 </p>
                 <p className="mt-5 max-w-[30ch] text-body text-sand">{fact}</p>
                 <Link

@@ -9,10 +9,20 @@ import { SITE } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import { cn } from "@/lib/utils";
+import { GlidePill } from "@/components/motion/GlidePill";
 import { AdminProvider, useAdmin } from "./AdminProvider";
 import { ADMIN_MODULES, DASHBOARD, moduleHref } from "./config";
 
-function Nav({ className, onNavigate }: { className?: string; onNavigate?: () => void }) {
+function Nav({
+  className,
+  onNavigate,
+  pillId,
+}: {
+  className?: string;
+  onNavigate?: () => void;
+  /** Un id por instancia: la barra lateral y la de móvil no comparten indicador. */
+  pillId: string;
+}) {
   const pathname = usePathname();
   const items = [
     { href: DASHBOARD.href, label: DASHBOARD.label, icon: DASHBOARD.icon },
@@ -30,10 +40,11 @@ function Nav({ className, onNavigate }: { className?: string; onNavigate?: () =>
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex min-h-11 items-center gap-3 rounded-full px-4 text-small font-semibold transition-colors lg:rounded-[0.875rem]",
-                  active ? "bg-ink text-cream" : "text-ink-soft hover:bg-ink/5 hover:text-ink",
+                  "relative isolate flex min-h-11 items-center gap-3 rounded-full px-4 text-small font-semibold transition-colors lg:rounded-[0.875rem]",
+                  active ? "text-cream" : "text-ink-soft hover:bg-ink/5 hover:text-ink",
                 )}
               >
+                {active && <GlidePill layoutId={pillId} className="bg-ink lg:rounded-[0.875rem]" />}
                 <Icon aria-hidden className="size-4.5 shrink-0" strokeWidth={1.75} />
                 {label}
               </Link>
@@ -112,7 +123,7 @@ function Shell({ children }: { children: React.ReactNode }) {
             <span className="text-small text-ink-muted">Admin demo</span>
           </span>
         </Link>
-        <Nav className="mt-8" />
+        <Nav className="mt-8" pillId="admin-nav-side" />
         <div className="mt-auto space-y-2">
           <button
             type="button"
@@ -154,7 +165,10 @@ function Shell({ children }: { children: React.ReactNode }) {
               Restablecer
             </button>
           </div>
-          <Nav className="scrollbar-none overflow-x-auto px-4 pb-3 md:px-8 lg:hidden" />
+          <Nav
+            className="scrollbar-none overflow-x-auto px-4 pb-3 md:px-8 lg:hidden"
+            pillId="admin-nav-top"
+          />
         </div>
 
         <main id="admin-contenido" className="px-4 py-8 md:px-8 md:py-10 lg:px-12">

@@ -11,6 +11,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { StickyWhatsApp } from "@/components/whatsapp/StickyWhatsApp";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
 import { cn } from "@/lib/utils";
+import { parseFigure } from "@/lib/figure";
+import { AnimatedFigure } from "@/components/motion/AnimatedFigure";
 import type { BrandSlug } from "@/types/content";
 import { BrandCard } from "./BrandCard";
 import { BrandHero } from "./BrandHero";
@@ -109,15 +111,27 @@ export function BrandPage({ slug, children }: { slug: BrandSlug; children?: Reac
         className="tone-ink bg-ink py-24 text-center text-cream md:py-36"
       >
         <Container>
-          <RevealTitle
-            as="p"
-            className={cn(
-              display,
-              "text-[clamp(3.5rem,1.5rem+9vw,10rem)] leading-[0.92] text-copper",
-            )}
-          >
-            {page.fact.highlight}
-          </RevealTitle>
+          {parseFigure(page.fact.highlight) ? (
+            // Cifras: ruedan como odómetro al entrar en pantalla.
+            <p
+              className={cn(
+                display,
+                "text-[clamp(3.5rem,1.5rem+9vw,10rem)] leading-[0.92] text-copper",
+              )}
+            >
+              <AnimatedFigure text={page.fact.highlight} />
+            </p>
+          ) : (
+            <RevealTitle
+              as="p"
+              className={cn(
+                display,
+                "text-[clamp(3.5rem,1.5rem+9vw,10rem)] leading-[0.92] text-copper",
+              )}
+            >
+              {page.fact.highlight}
+            </RevealTitle>
+          )}
           <p className="mx-auto mt-6 max-w-[40ch] text-body text-sand">{page.fact.text}</p>
         </Container>
       </section>

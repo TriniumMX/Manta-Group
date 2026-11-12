@@ -5,6 +5,7 @@ import { SmartImage } from "@/components/media/SmartImage";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 import { Collections } from "./Collections";
+import { AnimatedFigure } from "@/components/motion/AnimatedFigure";
 
 const display = "font-serif font-light tracking-[-0.035em] [font-variation-settings:'SOFT'_100]";
 const h2 = cn(display, "max-w-[20ch] text-[clamp(2.25rem,1.4rem+3.4vw,4.5rem)] leading-[1]");
@@ -86,7 +87,7 @@ function Block({ block, index }: { block: BrandModuleBlock; index: number }) {
                       "text-[clamp(4rem,2.4rem+5vw,6.5rem)] leading-[0.9] text-copper",
                     )}
                   >
-                    {item.value}
+                    <AnimatedFigure text={item.value} />
                   </p>
                   <p className="mt-6 text-[1.25rem] font-semibold text-cream">{item.label}</p>
                   <p className="mt-2 text-small text-sand">{item.note}</p>

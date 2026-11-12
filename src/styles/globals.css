@@ -407,3 +407,87 @@ html.lenis body {
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* Transición entre páginas (React <ViewTransition>): la foto de una marca se
+   transforma en la portada. Un desenfoque breve oculta la interpolación. */
+::view-transition-group(.morph) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+@keyframes via-blur {
+  35% {
+    filter: blur(4px);
+  }
+}
+
+/* AnimatedCounter · adaptado de Arc UI (https://uiarc.dev) · MIT. Clases globales con prefijo arc-. */
+/* Manta Group: hereda color, fuente y tamaño del contenedor. */
+.arc-counter {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  font-variant-numeric: tabular-nums;
+}
+.arc-label {
+  margin-bottom: 0.5rem;
+  color: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+/* Each digit is a clipped wheel; separators clip sideways only so a comma keeps its tail. */
+.arc-value {
+  display: inline-flex;
+  align-items: flex-start;
+  white-space: nowrap;
+  user-select: none;
+}
+/* The wheel's window reaches a little past the line box and feathers out, so a turning digit fades at the edge instead of being cut. */
+.arc-column {
+  --feather: 0.16em;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin-block: calc(var(--feather) * -1);
+  padding-block: var(--feather);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 calc(var(--feather) * 1.5),
+    #000 calc(100% - var(--feather) * 1.5),
+    transparent
+  );
+}
+.arc-sizer {
+  visibility: hidden;
+}
+.arc-glyph {
+  position: absolute;
+  inset: var(--feather) 0;
+  text-align: center;
+}
+.arc-labelText {
+  display: inline-block;
+}
+.arc-labelSwap {
+  position: relative;
+  display: block;
+}
+.arc-symbol {
+  display: inline-block;
+  overflow-x: clip;
+}
+.arc-srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

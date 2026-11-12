@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
 import { cn } from "@/lib/utils";
 import type { Brand } from "@/types/content";
+import { ViewTransition } from "react";
 
 const display =
   "font-serif font-light tracking-[-0.04em] [font-variation-settings:'SOFT'_100,'opsz'_144]";
@@ -154,20 +155,19 @@ function HeroImage({
   sizes: string;
 }) {
   return (
-    <div
-      className={cn(
-        "relative w-full animate-cover-unveil overflow-hidden bg-sand [animation-delay:200ms]",
-        className,
-      )}
-    >
-      <SmartImage
-        slot={brand.heroSlot}
-        preload
-        sizes={sizes}
-        className="absolute inset-0"
-        imageClassName="animate-cover-settle [animation-delay:200ms]"
-      />
-    </div>
+    // Destino de la transición entre páginas: la foto de la tarjeta de la marca
+    // se transforma en esta (mismo `name` en BrandCard y BrandStack).
+    <ViewTransition name={`marca-${brand.slug}`} share="morph" default="none">
+      <div className={cn("relative w-full overflow-hidden bg-sand", className)}>
+        <SmartImage
+          slot={brand.heroSlot}
+          preload
+          sizes={sizes}
+          className="absolute inset-0"
+          imageClassName="animate-cover-settle [animation-delay:200ms]"
+        />
+      </div>
+    </ViewTransition>
   );
 }
 
